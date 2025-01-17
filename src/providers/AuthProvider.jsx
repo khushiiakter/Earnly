@@ -8,20 +8,19 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  
 
   const createNewUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
-  
 
   const logOut = () => {
     setLoading(true);
@@ -39,6 +38,29 @@ const AuthProvider = ({children}) => {
     });
   };
 
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser?.email) {
+        setUser(currentUser);
+        // save user info in db
+        await axios.post(`http://localhost:5000/users/${currentUser?.email}`, {
+          name: currentUser.displayName,
+          image: currentUser.photoURL,
+          email: currentUser.email,
+          
+        })
+      } else {
+        setUser(null)
+      }
+
+       setLoading(false)
+    });
+      return () => {
+       unsubscribe();
+      }
+  }, []);
+
   const authInfo = {
     user,
     setUser,
@@ -48,21 +70,9 @@ const AuthProvider = ({children}) => {
     logOut,
     userLogIn,
     auth,
-    
-    
   };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
-  
+ 
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

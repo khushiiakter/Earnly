@@ -5,10 +5,11 @@ import { useContext, useEffect, useState } from "react";
 import {
   GoogleAuthProvider,
   signInWithPopup,
-  updateProfile,
+ 
 } from "firebase/auth";
 import toast from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
+import axios from "axios";
 
 const Register = () => {
   const { createNewUser, setUser,updateUserProfile, auth } = useContext(AuthContext);
@@ -48,7 +49,7 @@ const Register = () => {
       });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // get data from form
     const name = e.target.name.value;
@@ -60,26 +61,31 @@ const Register = () => {
       setError(
         "Password must be at least 6 characters long, include an uppercase letter, and a lowercase letter."
       );
+      return;
     }
 
-    createNewUser(email, password)
-      .then((result) => {
-        const user = result.user;
-        
-        
-        updateUserProfile(name, photo)
-          .then(() => {})
-          .catch((error) => toast("user profile update error"));
-        setUser(user);
-        setError("");
-        toast.success("Successfully login.");
-        navigate("/");
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-      });
-  };
+    try {
+      const result = await createNewUser(email, password);
+      const user = result.user;
 
+      await updateUserProfile(name, photo);
+
+      const updatedUser = auth.currentUser;
+      await axios.post(`http://localhost:5000/users/${updatedUser.email}`, {
+        name: updatedUser.displayName,
+        image: updatedUser.photoURL,
+        email: updatedUser.email,
+      });
+
+      setUser(updatedUser);
+      setError("");
+      toast.success("Successfully registered.");
+      navigate("/");
+    } catch (error) {
+      console.error("Registration Error:", error.message);
+      setError("Failed to register user.");
+    }
+  };
   return (
     <div className="bg-gray-100 flex justify-center items-center md:py-7  ">
       

@@ -1,14 +1,10 @@
-
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
-
-
-
 const Navbar = () => {
-  const {user, logOut} = useContext(AuthContext)
-  console.log(user);
+  const { user, logOut } = useContext(AuthContext);
+  
   const navOptions = (
     <>
       <li>
@@ -22,20 +18,19 @@ const Navbar = () => {
         // user ? 'true': 'false'
         // user ? condition ? 'double true' : 'one true' : 'false'
       }
-      {/* {
-            user && isAdmin && <li><Link to="/dashboard/adminHome">Dashboard</Link></li>
-        }
-        {
-            user && !isAdmin && <li><Link to="/dashboard/userHome">Dashboard</Link></li>
-        } */}
-      {/* <li>
-            <Link to="/dashboard/cart">
-                <button className="btn">
-                    <FaShoppingCart className="mr-2"></FaShoppingCart>
-                    <div className="badge badge-secondary">+{cart.length}</div>
-                </button>
-            </Link>
-        </li> */}
+
+      {user ? (
+        <>
+          <li><Link >Available Coin</Link></li>
+          <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+        </>
+      ) : (
+        <>
+          
+        </>
+      )}
     </>
   );
 
@@ -86,8 +81,7 @@ const Navbar = () => {
           <>
             <div className="relative group hidden md:block">
               <img
-                src={
-                  user.photoURL ||
+                src={ user.photoURL ? user.photoURL:
                   `${"https://i.ibb.co.com/Rh2DLGL/blank-profile-picture-973460-640.png"}`
                 }
                 // alt="Profile"
