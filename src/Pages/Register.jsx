@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Register = () => {
-  const { createNewUser, setUser, auth } = useContext(AuthContext);
+  const { createNewUser, setUser,updateUserProfile, auth } = useContext(AuthContext);
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -65,11 +65,9 @@ const Register = () => {
     createNewUser(email, password)
       .then((result) => {
         const user = result.user;
-        const profile = {
-          photoURL: photo,
-          displayName: name,
-        };
-        updateProfile(auth.currentUser, profile)
+        
+        
+        updateUserProfile(name, photo)
           .then(() => {})
           .catch((error) => toast("user profile update error"));
         setUser(user);
@@ -84,9 +82,7 @@ const Register = () => {
 
   return (
     <div className="bg-gray-100 flex justify-center items-center md:py-7  ">
-      <Helmet>
-        <title>Register-Service Review</title>
-      </Helmet>
+      
       <div className="card bg-[#e3e5f3d5] w-full  md:max-w-lg shrink-0 md:border-2 border-[#556180] md:rounded-3xl rounded-none md:p-9 px-1 py-6">
         <h2 className="text-3xl font-semibold text-center">
           Register your account

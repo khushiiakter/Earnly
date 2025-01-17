@@ -8,7 +8,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 
 const Navbar = () => {
   const {user, logOut} = useContext(AuthContext)
-  
+  console.log(user);
   const navOptions = (
     <>
       <li>
@@ -87,7 +87,7 @@ const Navbar = () => {
             <div className="relative group hidden md:block">
               <img
                 src={
-                  user?.photoURL ||
+                  user.photoURL ||
                   `${"https://i.ibb.co.com/Rh2DLGL/blank-profile-picture-973460-640.png"}`
                 }
                 // alt="Profile"
@@ -97,7 +97,7 @@ const Navbar = () => {
                 className="absolute -right-4
                top-[50px] max-w-max z-20 bg-gray-800 text-white text-sm shadow-lg p-2 rounded hidden group-hover:block"
               >
-                {user?.displayName || "User"}
+                {user.displayName || "User"}
               </div>
             </div>
             <Link
