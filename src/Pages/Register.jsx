@@ -21,7 +21,6 @@ const Register = () => {
     const hasLowercase = /[a-z]/.test(password);
     return minLength && hasUppercase && hasLowercase;
   };
-
   useEffect(() => {
     const user = auth.currentUser;
     if (user) {
@@ -31,41 +30,43 @@ const Register = () => {
 
   const handleGoogleLogin = () => {
     signInWithPopup(auth, googleProvider)
-      .then(async(result) => {
+      .then(async (result) => {
         const user = result.user;
-        setUser(user);
-        setError("");
+        const role = "Worker"; 
+        const coins = 10;
 
-        await axios.post(`http://localhost:5000/users/${user.email}`, {
+        await axios.post("http://localhost:5000/users", {
           name: user.displayName,
-          image: user.photoURL,
           email: user.email,
-          role: "Worker", // Default role for Google login
+          image: user.photoURL,
+          role,
+          coins,
         });
-  
 
-        toast.success("Successfully login.");
+        setUser(user);
+        toast.success("Google Login Successful");
         navigate("/");
       })
-
       .catch((error) => {
-        console.log("Google Login Error:", error.message);
+        console.error("Google Login Error:", error.message);
         setError("Failed to login with Google.");
       });
   };
 
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // get data from form
     const name = e.target.name.value;
     const photo = e.target.photo.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     const role = e.target.role.value;
+    const coins = role === "Worker" ? 10 : 50;
 
     if (!isPasswordValid(password)) {
       setError(
-        "Password must be at least 6 characters long, include an uppercase letter, and a lowercase letter."
+        "Password must be at least 6 characters long and include an uppercase and a lowercase letter."
       );
       return;
     }
@@ -76,23 +77,25 @@ const Register = () => {
 
       await updateUserProfile(name, photo);
 
-      const updatedUser = auth.currentUser;
-
-      await axios.post(`http://localhost:5000/users/${updatedUser.email}`, {
-        name: updatedUser.displayName,
-        image: updatedUser.photoURL,
-        email: updatedUser.email,
-        // role,
+      await axios.post("http://localhost:5000/users", {
+        name,
+        email,
+        image: photo,
+        role,
+        coins,
       });
-      setUser(updatedUser);
-      setError("");
-      toast.success("Successfully registered.");
+
+      setUser(user);
+      toast.success("Registration Successful!");
       navigate("/");
     } catch (error) {
       console.error("Registration Error:", error.message);
-      setError("Failed to register user.");
+      setError("Failed to register. Email may already exist.");
     }
   };
+  
+
+
   return (
     <div className="bg-gray-100 flex justify-center items-center md:py-7  ">
       <div className="card bg-[#e3e5f3d5] w-full  md:max-w-lg shrink-0 md:border-2 border-[#556180] md:rounded-3xl rounded-none md:p-9 px-1 py-6">
@@ -136,13 +139,7 @@ const Register = () => {
               required
             />
           </div>
-          <div className="form-control">
-            <label className="label">Role</label>
-            <select name="role" className="select select-bordered" required>
-              <option value="Worker">Worker</option>
-              <option value="Buyer">Buyer</option>
-            </select>
-          </div>
+          
 
           <div className="form-control">
             <label className="label">
@@ -158,6 +155,7 @@ const Register = () => {
             {error && (
               <label className="label text-sm text-red-700">{error}</label>
             )}
+
             {/* {error.login && (
               <label className="label text-sm text-red-600">
                 {error.login}
@@ -169,8 +167,15 @@ const Register = () => {
               </a>
             </label>
           </div>
-          <div className="form-control mt-3">
-            <button className="btn text-white bg-[#0F1035] w-full hover:bg-green-800  rounded-full">
+          <div className="form-control">
+            <label className="label">Role</label>
+            <select name="role" className="select select-bordered" required>
+              <option value="Worker">Worker</option>
+              <option value="Buyer">Buyer</option>
+            </select>
+          </div>
+          <div  className="form-control mt-3">
+            <button type="submit" className="btn text-white bg-[#0F1035] w-full hover:bg-green-800  rounded-full">
               Register
             </button>
           </div>

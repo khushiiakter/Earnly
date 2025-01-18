@@ -15,18 +15,15 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [coins, setCoins] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const createNewUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const logOut = () => {
-    setLoading(true);
-    return signOut(auth);
-  };
+ 
 
   const userLogIn = (email, password) => {
     setLoading(true);
@@ -38,36 +35,34 @@ const AuthProvider = ({ children }) => {
       photoURL: photo,
     });
   };
+  const logOut = () => {
+    setLoading(true);
+    return signOut(auth);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser?.email) {
-        setUser(currentUser);
-             
-
-        // save user info in db
-        await axios.post(`http://localhost:5000/users/${currentUser?.email}`, {
-          name: currentUser.displayName,
-          image: currentUser.photoURL,
-          email: currentUser.email,
-          
-          
-        });
-        const { data } = await axios.get(
-          `http://localhost:5000/users/coins/${currentUser.email}`
-        );
-        setCoins(data.coins || 0);
+      if (currentUser) {
+        try {
+          // Fetch user info from the backend
+          const { data } = await axios.get(`http://localhost:5000/users/${currentUser.email}`
+          );
+          setUser({
+            ...currentUser,
+            role: data.role,
+            coins: data.coins,
+          });
+          setCoins(data.coins || 0);
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
+        }
       } else {
         setUser(null);
         setCoins(0);
-        
       }
-
       setLoading(false);
     });
-    return () => {
-      unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
   const authInfo = {
@@ -76,9 +71,9 @@ const AuthProvider = ({ children }) => {
     coins,
     loading,
     createNewUser,
+    userLogIn,
     updateUserProfile,
     logOut,
-    userLogIn,
     auth,
   };
 
