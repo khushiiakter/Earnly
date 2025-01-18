@@ -38,27 +38,29 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser?.email) {
         setUser(currentUser);
+             
+
         // save user info in db
         await axios.post(`http://localhost:5000/users/${currentUser?.email}`, {
           name: currentUser.displayName,
           image: currentUser.photoURL,
           email: currentUser.email,
-          
-        })
+          role,
+          coins,
+        });
       } else {
-        setUser(null)
+        setUser(null);
       }
 
-       setLoading(false)
+      setLoading(false);
     });
-      return () => {
-       unsubscribe();
-      }
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const authInfo = {
@@ -71,8 +73,6 @@ const AuthProvider = ({ children }) => {
     userLogIn,
     auth,
   };
-
- 
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

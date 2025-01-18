@@ -56,6 +56,8 @@ const Register = () => {
     const photo = e.target.photo.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
+    const role = e.target.role.value; 
+   
 
     if (!isPasswordValid(password)) {
       setError(
@@ -75,6 +77,9 @@ const Register = () => {
         name: updatedUser.displayName,
         image: updatedUser.photoURL,
         email: updatedUser.email,
+        
+        
+        
       });
 
       setUser(updatedUser);
@@ -130,6 +135,14 @@ const Register = () => {
               required
             />
           </div>
+          <div className="form-control">
+            <label className="label">Role</label>
+            <select name="role" className="select select-bordered" required>
+              <option value="Worker">Worker</option>
+              <option value="Buyer">Buyer</option>
+            </select>
+          </div>
+
           <div className="form-control">
             <label className="label">
               <span className="label-text">Password</span>
