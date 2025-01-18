@@ -49,8 +49,8 @@ const AuthProvider = ({ children }) => {
           name: currentUser.displayName,
           image: currentUser.photoURL,
           email: currentUser.email,
-          role,
-          coins,
+          
+          
         });
       } else {
         setUser(null);

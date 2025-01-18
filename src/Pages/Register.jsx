@@ -1,18 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 
-
 import { useContext, useEffect, useState } from "react";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
- 
-} from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import toast from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
 
 const Register = () => {
-  const { createNewUser, setUser,updateUserProfile, auth } = useContext(AuthContext);
+  const { createNewUser, setUser, updateUserProfile, auth } =
+    useContext(AuthContext);
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -56,8 +52,7 @@ const Register = () => {
     const photo = e.target.photo.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    const role = e.target.role.value; 
-   
+    const role = e.target.role.value;
 
     if (!isPasswordValid(password)) {
       setError(
@@ -73,15 +68,13 @@ const Register = () => {
       await updateUserProfile(name, photo);
 
       const updatedUser = auth.currentUser;
+
       await axios.post(`http://localhost:5000/users/${updatedUser.email}`, {
         name: updatedUser.displayName,
         image: updatedUser.photoURL,
         email: updatedUser.email,
-        
-        
-        
+        role,
       });
-
       setUser(updatedUser);
       setError("");
       toast.success("Successfully registered.");
@@ -93,7 +86,6 @@ const Register = () => {
   };
   return (
     <div className="bg-gray-100 flex justify-center items-center md:py-7  ">
-      
       <div className="card bg-[#e3e5f3d5] w-full  md:max-w-lg shrink-0 md:border-2 border-[#556180] md:rounded-3xl rounded-none md:p-9 px-1 py-6">
         <h2 className="text-3xl font-semibold text-center">
           Register your account
@@ -169,7 +161,9 @@ const Register = () => {
             </label>
           </div>
           <div className="form-control mt-3">
-            <button className="btn text-white bg-[#0F1035] w-full hover:bg-green-800  rounded-full">Register</button>
+            <button className="btn text-white bg-[#0F1035] w-full hover:bg-green-800  rounded-full">
+              Register
+            </button>
           </div>
           <div className="divider text-black">OR</div>
 
@@ -182,7 +176,10 @@ const Register = () => {
         </form>
         <p className="text-center font-semibold">
           Already have an account?{" "}
-          <Link className="text-[#0F1035] hover:text-green-800" to="/auth/login">
+          <Link
+            className="text-[#0F1035] hover:text-green-800"
+            to="/auth/login"
+          >
             Login
           </Link>
         </p>
