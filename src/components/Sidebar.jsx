@@ -17,12 +17,12 @@ const Sidebar = () => {
   return (
     <>
       {/* Small Screen Navbar */}
-      <div className="bg-gray-100 text-gray-800 flex justify-between md:hidden">
+      {/* <div className="bg-gray-100 text-gray-800 flex justify-between md:hidden">
         <div>
           <div className="block cursor-pointer p-4 font-bold">
             <Link to="/">
               <img
-                // className='hidden md:block'
+               
                 src="https://i.ibb.co/4ZXzmq5/logo.png"
                 alt="logo"
                 width="100"
@@ -38,7 +38,7 @@ const Sidebar = () => {
         >
           <AiOutlineBars className="h-5 w-5" />
         </button>
-      </div>
+      </div> */}
 
       {/* Sidebar */}
       <div
@@ -48,14 +48,12 @@ const Sidebar = () => {
       >
         <div>
           <div>
-            <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-lime-100 mx-auto">
+            <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center  mx-auto">
               <Link to="/">
                 <img
                   // className='hidden md:block'
                   src=""
                   alt="logo"
-                  width="100"
-                  height="100"
                 />
               </Link>
             </div>
@@ -63,7 +61,45 @@ const Sidebar = () => {
 
           {/* Nav Items */}
           <div className="flex flex-col justify-between flex-1 mt-6">
-            <nav>{/*  Menu Items */}</nav>
+            <ul className="menu p-4 space-y-2">
+              {/*  Menu Items */}
+              <li>
+                <Link to="workerHome">Worker Home</Link>
+              </li>
+              <li>
+                <Link to="taskList">TaskList</Link>
+              </li>
+              <li>
+                <Link to="mySubmissions">My Submissions</Link>
+              </li>
+              <li>
+                <Link to="withdrawals">Withdrawals</Link>
+              </li>
+              <li>
+                <Link to="buyerHome">Buyer Home</Link>
+              </li>
+              <li>
+                <Link to="addNewTasks">Add new Tasks</Link>
+              </li>
+              <li>
+                <Link to="myTasks">My Task's</Link>
+              </li>
+              <li>
+                <Link to="purchaseCoin">Purchase Coin</Link>
+              </li>
+              <li>
+                <Link to="paymentHistory">Payment history</Link>
+              </li>
+              <li>
+                <Link to="adminHome">Admin Home</Link>
+              </li>
+              <li>
+                <Link to="manageUsers">Manage Users</Link>
+              </li>
+              <li>
+                <Link to="manageTasks">Manage Task</Link>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -72,8 +108,8 @@ const Sidebar = () => {
 
           <li>
             <Link to="/">
-              <FaHome></FaHome>Home
-              
+              <FaHome></FaHome>
+              <span className="mx-4 font-medium">Home</span>
             </Link>
           </li>
           <button

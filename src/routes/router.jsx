@@ -7,6 +7,18 @@ import Home from "../Pages/Home";
 import PrivateRoute from "./PrivateRoute";
 
 import DashboardLayout from "../layouts/DashboardLayout";
+import WorkerHome from "../Pages/worker/WorkerHome";
+import TaskList from "../Pages/worker/TaskList";
+import MySubmissions from "../Pages/worker/MySubmissions";
+import Withdrawals from "../Pages/worker/Withdrawals";
+import BuyerHome from "../Pages/Buyer/BuyerHome";
+import AddNewTasks from "../Pages/Buyer/AddNewTasks";
+import MyTasks from "../Pages/Buyer/MyTasks";
+import PurchaseCoin from "../Pages/Buyer/PurchaseCoin";
+import PaymentHistory from "../Pages/Buyer/PaymentHistory";
+import AdminHome from "../Pages/Admin/AdminHome";
+import ManageUsers from "../Pages/Admin/ManageUsers";
+import ManageTasks from "../Pages/Admin/ManageTasks";
 
 const router = createBrowserRouter([
     {
@@ -88,22 +100,56 @@ const router = createBrowserRouter([
       element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
       children: [
         // normal user routes
-        // {
-        //   path: 'userHome',
-        //   element: <UserHome></UserHome>
-        // },
-        // {
-        //   path: 'cart',
-        //   element: <Cart></Cart>
-        // },
-        // {
-        //   path: 'payment',
-        //   element: <Payment></Payment>
-        // },
-        // {
-        //   path: 'paymentHistory',
-        //   element: <PaymentHistory></PaymentHistory>
-        // },
+        {
+          path: 'workerHome',
+          element: <WorkerHome></WorkerHome>,
+          loader: () => fetch('http://localhost:5000/tasks')
+        },
+        {
+          path: 'taskList',
+          element: <TaskList></TaskList>,
+        },
+        {
+          path: 'mySubmissions',
+          element: <MySubmissions></MySubmissions>
+        },
+        
+        {
+          path: 'withdrawals',
+          element: <Withdrawals></Withdrawals>,
+        },
+        {
+          path: 'buyerHome',
+          element: <BuyerHome></BuyerHome>
+        },
+        {
+          path: 'addNewTasks',
+          element: <AddNewTasks></AddNewTasks>,
+        },
+        {
+          path: 'myTasks',
+          element: <MyTasks></MyTasks>
+        },
+        {
+          path: 'purchaseCoin',
+          element: <PurchaseCoin></PurchaseCoin>
+        },
+        {
+          path: 'paymentHistory',
+          element: <PaymentHistory></PaymentHistory>
+        },
+        {
+          path: 'adminHome',
+          element: <AdminHome></AdminHome>,
+        },
+        {
+          path: 'manageUsers',
+          element: <ManageUsers></ManageUsers>,
+        },
+        {
+          path: 'manageTasks',
+          element: <ManageTasks></ManageTasks>
+        },
 
         // admin only routes
         // {
