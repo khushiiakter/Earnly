@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, coins } = useContext(AuthContext);
   
   const navOptions = (
     <>
@@ -21,7 +21,7 @@ const Navbar = () => {
 
       {user ? (
         <>
-          <li><Link >Available Coin</Link></li>
+          <li><Link >Available Coin{coins}</Link></li>
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>

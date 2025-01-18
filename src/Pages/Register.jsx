@@ -31,10 +31,19 @@ const Register = () => {
 
   const handleGoogleLogin = () => {
     signInWithPopup(auth, googleProvider)
-      .then((result) => {
+      .then(async(result) => {
         const user = result.user;
         setUser(user);
         setError("");
+
+        await axios.post(`http://localhost:5000/users/${user.email}`, {
+          name: user.displayName,
+          image: user.photoURL,
+          email: user.email,
+          role: "Worker", // Default role for Google login
+        });
+  
+
         toast.success("Successfully login.");
         navigate("/");
       })
@@ -73,7 +82,7 @@ const Register = () => {
         name: updatedUser.displayName,
         image: updatedUser.photoURL,
         email: updatedUser.email,
-        role,
+        // role,
       });
       setUser(updatedUser);
       setError("");

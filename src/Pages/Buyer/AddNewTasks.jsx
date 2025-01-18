@@ -29,7 +29,7 @@ const AddNewTasks = () => {
       parseInt(formData.requiredWorkers) * parseInt(formData.payableAmount);
 
     
-    const userCoins = 100; // 
+    // const userCoins = 100; 
 
     if (totalPayableAmount > userCoins) {
       Swal.fire({

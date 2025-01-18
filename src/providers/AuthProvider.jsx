@@ -16,6 +16,7 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [coins, setCoins] = useState(0);
 
   const createNewUser = (email, password) => {
     setLoading(true);
@@ -52,8 +53,14 @@ const AuthProvider = ({ children }) => {
           
           
         });
+        const { data } = await axios.get(
+          `http://localhost:5000/users/coins/${currentUser.email}`
+        );
+        setCoins(data.coins || 0);
       } else {
         setUser(null);
+        setCoins(0);
+        
       }
 
       setLoading(false);
@@ -66,6 +73,7 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     user,
     setUser,
+    coins,
     loading,
     createNewUser,
     updateUserProfile,
