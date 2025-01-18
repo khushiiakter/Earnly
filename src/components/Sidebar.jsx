@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import { Link, NavLink } from "react-router-dom";
-import { AiOutlineBars } from "react-icons/ai";
+import { Link } from "react-router-dom";
+
 
 import { GrLogout } from "react-icons/gr";
 import { FaHome } from "react-icons/fa";
@@ -64,40 +64,40 @@ const Sidebar = () => {
             <ul className="menu p-4 space-y-2">
               {/*  Menu Items */}
               <li>
-                <Link to="workerHome">Worker Home</Link>
+                <Link to="/dashboard/workerHome">Worker Home</Link>
               </li>
               <li>
-                <Link to="taskList">TaskList</Link>
+                <Link to="/dashboard/tasks">TaskList</Link>
               </li>
               <li>
-                <Link to="mySubmissions">My Submissions</Link>
+                <Link to="/dashboard/mySubmissions">My Submissions</Link>
               </li>
               <li>
-                <Link to="withdrawals">Withdrawals</Link>
+                <Link to="/dashboard/withdrawals">Withdrawals</Link>
               </li>
               <li>
-                <Link to="buyerHome">Buyer Home</Link>
+                <Link to="/dashboard/buyerHome">Buyer Home</Link>
               </li>
               <li>
-                <Link to="addNewTasks">Add new Tasks</Link>
+                <Link to="/dashboard/addNewTasks">Add new Tasks</Link>
               </li>
               <li>
-                <Link to="myTasks">My Task's</Link>
+                <Link to="/dashboard/myTasks">My Task's</Link>
               </li>
               <li>
-                <Link to="purchaseCoin">Purchase Coin</Link>
+                <Link to="/dashboard/purchaseCoin">Purchase Coin</Link>
               </li>
               <li>
-                <Link to="paymentHistory">Payment history</Link>
+                <Link to="/dashboard/paymentHistory">Payment history</Link>
               </li>
               <li>
-                <Link to="adminHome">Admin Home</Link>
+                <Link to="/dashboard/adminHome">Admin Home</Link>
               </li>
               <li>
-                <Link to="manageUsers">Manage Users</Link>
+                <Link to="/dashboard/manageUsers">Manage Users</Link>
               </li>
               <li>
-                <Link to="manageTasks">Manage Task</Link>
+                <Link to="/dashboard/manageTasks">Manage Task</Link>
               </li>
             </ul>
           </div>

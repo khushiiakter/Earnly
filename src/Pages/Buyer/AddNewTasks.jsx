@@ -28,8 +28,8 @@ const AddNewTasks = () => {
     const totalPayableAmount =
       parseInt(formData.requiredWorkers) * parseInt(formData.payableAmount);
 
-    // Fetch user's coin balance (this could be part of your user context or fetched from the backend)
-    const userCoins = 100; // Example: Replace with actual coin data
+    
+    const userCoins = 100; // 
 
     if (totalPayableAmount > userCoins) {
       Swal.fire({
@@ -37,7 +37,7 @@ const AddNewTasks = () => {
         text: "Not enough coins. Please purchase more coins to proceed.",
         icon: "error",
       });
-      navigate("/purchase-coins"); // Navigate to the coin purchase page
+      navigate("/purchaseCoin"); // Navigate to the coin purchase page
       return;
     }
 
@@ -70,7 +70,7 @@ const AddNewTasks = () => {
             submissionInfo: "",
             taskImageUrl: "",
           });
-          navigate("/tasks"); // Navigate to tasks or dashboard page
+          navigate("/dashboard/tasks"); // Navigate to tasks or dashboard page
         } else {
           Swal.fire({
             title: "Error!",

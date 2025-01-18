@@ -38,45 +38,7 @@ const router = createBrowserRouter([
           },
         
 
-        // {
-        //   path: "/services",
-        //   element: <Services></Services>,
-        //   loader: () => fetch('https://assignment-11-server-nine-peach.vercel.app/services')
-        // },
-        // {
-        //   path: "/my-services",
-        //   element: <MyServices></MyServices>,
         
-        // },
-        // {
-        //   path: "/add-service",
-        
-        //   element:<PrivateRoute><AddService></AddService></PrivateRoute> ,
-        // },
-        // {
-        //   path: "/update-service",
-        //   element:<PrivateRoute><UpdateService></UpdateService></PrivateRoute> ,
-        // },
-        // {
-        //   path: "/myReviews",
-        //   element:<PrivateRoute><MyReviews></MyReviews></PrivateRoute> ,
-         
-        // },
-        
-        // {
-        //   path: "/service-details/:id",
-        //   element:<PrivateRoute><ServiceDetail></ServiceDetail></PrivateRoute> ,
-        //   loader: ({params}) => fetch(`https://assignment-11-server-nine-peach.vercel.app/services/${params.id}`),
-
-             
-          
-        // },
-        // {
-        //   path: "/membership",
-        //   element: <Membership></Membership> ,
-         
-          
-        // },
         
         {
           path: "/auth",
@@ -103,11 +65,12 @@ const router = createBrowserRouter([
         {
           path: 'workerHome',
           element: <WorkerHome></WorkerHome>,
-          loader: () => fetch('http://localhost:5000/tasks')
+          
         },
         {
-          path: 'taskList',
+          path: 'tasks',
           element: <TaskList></TaskList>,
+          loader: () => fetch('http://localhost:5000/tasks'),
         },
         {
           path: 'mySubmissions',
