@@ -45,7 +45,7 @@ const AddNewTasks = () => {
       ...formData,
       totalPayableAmount,
       userEmail: user?.email,
-      addedDate: new Date().toISOString(),
+      addedDate: new Date().toISOString().split("T")[0],
     };
 
     fetch("http://localhost:5000/tasks", {

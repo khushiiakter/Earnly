@@ -34,47 +34,49 @@ const MyTasks = () => {
   }, [user?.email]);
 
   // Open modal to update task
-  //   const handleEdit = (task) => {
-  //     setSelectedTask(task);
-  //     setIsModalOpen(true);
-  //   };
+  const handleEdit = (task) => {
+    setSelectedTask(task);
+    setIsModalOpen(true);
+  };
 
   // Close modal
-  //   const closeModal = () => {
-  //     setSelectedTask(null);
-  //     setIsModalOpen(false);
-  //   };
+  const closeModal = () => {
+    setSelectedTask(null);
+    setIsModalOpen(false);
+  };
 
   // Handle task update
-  //   const handleUpdate = (e) => {
-  //     e.preventDefault();
-  //     const { title, taskDetail, submissionDetails } = e.target;
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const form = e.target;
 
-  //     const updatedTask = {
-  //       title: title.value,
-  //       taskDetail: taskDetail.value,
-  //       submissionDetails: submissionDetails.value,
-  //     };
+    const updatedTask = {
+      taskTitle: form.taskTitle.value,
+      taskDetails: form.taskDetails.value,
+      submissionInfo: form.submissionInfo.value,
+      
+      payableAmount: form.payableAmount.value,
+      requiredWorkers: form.requiredWorkers.value,
+      completionDate: form.completionDate.value,
+      taskImageUrl: form.taskImageUrl.value,
+    };
 
-  //     axios
-  //       .put(`/tasks/${selectedTask._id}`, updatedTask)
-  //       .then((res) => {
-  //         if (res.data.success) {
-  //           toast.success("Task updated successfully!");
-  //           setTasks((prev) =>
-  //             prev.map((task) =>
-  //               task._id === selectedTask._id
-  //                 ? { ...task, ...updatedTask }
-  //                 : task
-  //             )
-  //           );
-  //           closeModal();
-  //         } else {
-  //           toast.error("Failed to update the task.");
-  //         }
-  //       })
-  //       .catch((err) => console.error("Error updating task:", err));
-  //   };
+    axiosSecure.put(`/tasks/${selectedTask._id}`, updatedTask)
+      .then((res) => {
+        if (res.data.success) {
+          toast.success("Task updated successfully!");
+          setTasks((prev) =>
+            prev.map((task) =>
+              task._id === selectedTask._id ? { ...task, ...updatedTask } : task
+            )
+          );
+          closeModal();
+        } else {
+          toast.error("Failed to update the task.");
+        }
+      })
+      .catch((err) => console.error("Error updating task:", err));
+  };
 
   // Handle task deletion
   //   const handleDelete = (task) => {
@@ -126,14 +128,24 @@ const MyTasks = () => {
             <table className="min-w-full leading-normal">
               <thead>
                 <tr>
+                  <th className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    Task Photo
+                  </th>
                   <th className="px-5 py-3 bg-white border-b text-gray-800 text-left text-sm uppercase font-normal">
                     Title
                   </th>
                   <th className="px-5 py-3 bg-white border-b text-gray-800 text-left text-sm uppercase font-normal">
-                    Task Detail
+                    Required Workers
                   </th>
                   <th className="px-5 py-3 bg-white border-b text-gray-800 text-left text-sm uppercase font-normal">
-                    Submission Details
+                    Payable Amount
+                  </th>
+
+                  <th className="px-5 py-3 bg-white border-b text-gray-800 text-left text-sm uppercase font-normal">
+                    Added Date
+                  </th>
+                  <th className="px-5 py-3 bg-white border-b text-gray-800 text-left text-sm uppercase font-normal">
+                    Total Payable Amount
                   </th>
                   <th className="px-5 py-3 bg-white border-b text-gray-800 text-left text-sm uppercase font-normal">
                     Update
@@ -145,33 +157,7 @@ const MyTasks = () => {
               </thead>
               <tbody>
                 {tasks.map((task) => (
-                  //   <tr key={task._id}>
-                  //     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  //       {task.taskTitle}
-                  //     </td>
-                  //     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  //       {task.taskDetails}
-                  //     </td>
-                  //     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  //       {task.submissionInfo}
-                  //     </td>
-                  //     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  //       <button
-                  //         className="text-blue-600 hover:underline"
-                  //         onClick={() => handleEdit(task)}
-                  //       >
-                  //         Update
-                  //       </button>
-                  //     </td>
-                  //     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  //       <button
-                  //         className="text-red-600 hover:underline"
-                  //         onClick={() => handleDelete(task)}
-                  //       >
-                  //         Delete
-                  //       </button>
-                  //     </td>
-                  //   </tr>
+                 
                   <tr key={task._id}>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <div className="flex items-center">
@@ -179,7 +165,7 @@ const MyTasks = () => {
                           <div className="block relative">
                             <img
                               alt="profile"
-                              src="https://i.ibb.co.com/rMHmQP2/money-plant-in-feng-shui-brings-luck.jpg"
+                              src={task.taskImageUrl}
                               className="mx-auto object-cover rounded h-10 w-15 "
                             />
                           </div>
@@ -188,44 +174,51 @@ const MyTasks = () => {
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <p className="text-gray-900 whitespace-no-wrap">
-                      {task.taskTitle}
+                        {task.taskTitle}
                       </p>
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <p className="text-gray-900 whitespace-no-wrap">Indoor</p>
+                      <p className="text-gray-900 whitespace-no-wrap">
+                        {task.requiredWorkers}
+                      </p>
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <p className="text-gray-900 whitespace-no-wrap">$120</p>
+                      <p className="text-gray-900 whitespace-no-wrap">
+                        {task.payableAmount}
+                      </p>
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <p className="text-gray-900 whitespace-no-wrap">5</p>
+                      <p className="text-gray-900 whitespace-no-wrap">
+                        {task.addedDate}
+                      </p>
+                    </td>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p className="text-gray-900 whitespace-no-wrap">
+                        {task.completionDate}
+                      </p>
                     </td>
 
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <span
-                        
-                        className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
-                      >
+                      <span className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                         <span
                           aria-hidden="true"
                           className="absolute inset-0 bg-red-200 opacity-50 rounded-full"
                         ></span>
-                        <span className="relative" onClick={() => handleDelete(task)}>Delete</span>
+                        <span
+                          className="relative"
+                          onClick={() => handleDelete(task)}
+                        >
+                          Delete
+                        </span>
                       </span>
-                      
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <span
-                        
-                        className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+                      <button
+                        className="text-red-600 hover:underline"
+                        onClick={() => handleEdit(task)}
                       >
-                        <span
-                          aria-hidden="true"
-                          className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                        ></span>
-                        <span className="relative"  onClick={() => handleEdit(task)}>Update</span>
-                      </span>
-                      
+                        update
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -236,16 +229,16 @@ const MyTasks = () => {
       </div>
 
       {isModalOpen && selectedTask && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
+        <div className="absolute  inset-0 bg-black bg-opacity-50 flex py-10 justify-center">
+          <div className="bg-white  p-6 rounded-lg shadow-lg w-full max-w-2xl ">
             <h2 className="text-2xl font-bold text-center mb-4">Update Task</h2>
             <form onSubmit={handleUpdate} className="space-y-4">
               <div>
                 <label className="block font-medium text-gray-700">Title</label>
                 <input
                   type="text"
-                  name="title"
-                  defaultValue={selectedTask.title}
+                  name="taskTitle"
+                  defaultValue={selectedTask.taskTitle}
                   className="input input-bordered w-full"
                 />
               </div>
@@ -254,9 +247,45 @@ const MyTasks = () => {
                   Task Detail
                 </label>
                 <textarea
-                  name="taskDetail"
-                  defaultValue={selectedTask.taskDetail}
+                  name="taskDetails"
+                  defaultValue={selectedTask.taskDetails}
                   className="textarea textarea-bordered w-full"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block font-medium text-gray-700">
+                    Required Workers
+                  </label>
+                  <input
+                    type="number"
+                    name="requiredWorkers"
+                    defaultValue={selectedTask.requiredWorkers}
+                    className="w-full px-3 py-2 border rounded shadow"
+                  />
+                </div>
+                <div>
+                  <label className="block font-medium text-gray-700">
+                    Payable Amount (per worker)
+                  </label>
+                  <input
+                    type="number"
+                    name="payableAmount"
+                    defaultValue={selectedTask.payableAmount}
+                    className="w-full px-3 py-2 border rounded shadow"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block font-medium text-gray-700">
+                  Completion Date
+                </label>
+                <input
+                  type="date"
+                  name="completionDate"
+                  defaultValue={selectedTask.completionDate}
+                  className="w-full px-3 py-2 border rounded shadow"
                 />
               </div>
               <div>
@@ -264,9 +293,20 @@ const MyTasks = () => {
                   Submission Details
                 </label>
                 <textarea
-                  name="submissionDetails"
-                  defaultValue={selectedTask.submissionDetails}
+                  name="submissionInfo"
+                  defaultValue={selectedTask.submissionInfo}
                   className="textarea textarea-bordered w-full"
+                />
+              </div>
+              <div>
+                <label className="block font-medium text-gray-700">
+                  Task Image URL
+                </label>
+                <input
+                  type="url"
+                  name="taskImageUrl"
+                  defaultValue={selectedTask.taskImageUrl}
+                  className="w-full px-3 py-2 border rounded shadow"
                 />
               </div>
               <div className="flex justify-end gap-2">

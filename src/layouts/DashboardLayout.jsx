@@ -11,7 +11,7 @@ const DashboardLayout = () => {
       {/* Left Side: Sidebar Component */}
       <Sidebar></Sidebar>
       {/* Right Side: Dashboard Dynamic Content */}
-      <div className="flex-1 md:ml-64">
+      <div className="flex-1 md:ml-60">
         <div className="border flex items-center justify-end text-right px-8">
           <div>
             <h2 className="font-bold  text-xl">Available coin  {coins} </h2>
