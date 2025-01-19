@@ -14,7 +14,7 @@ const TaskCard = ({ task }) => {
   return (
     <div className="border flex flex-col rounded-lg shadow-lg p-4 bg-white">
       <div className="flex flex-col flex-grow">
-        <img src={taskImageUrl} className="w-full h-[150px]" alt="" />
+        <img src={taskImageUrl} className="w-full object-cover h-[150px]" alt="" />
         <h3 className="text-xl font-bold text-gray-800">{taskTitle}</h3>
         <p className="text-base text-gray-600 mt-2">
           <strong>Buyer:</strong> {Buyer_name}

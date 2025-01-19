@@ -1,19 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 
 import { useContext, useEffect, useState } from "react";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
 import toast from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
 
 const Register = () => {
-  const { createNewUser, setUser, updateUserProfile, auth } =
+  const { createNewUser, setUser, updateUserProfile, auth, handleGoogleLogin } =
     useContext(AuthContext);
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const googleProvider = new GoogleAuthProvider();
+  
 
   const isPasswordValid = (password) => {
     const minLength = password.length >= 6;
@@ -21,37 +21,37 @@ const Register = () => {
     const hasLowercase = /[a-z]/.test(password);
     return minLength && hasUppercase && hasLowercase;
   };
+ 
   useEffect(() => {
     const user = auth.currentUser;
     if (user) {
       navigate("/");
     }
   }, [auth, navigate]);
+  // const handleGoogleLogin = () => {
+  //   signInWithPopup(auth, googleProvider)
+  //     .then(async (result) => {
+  //       const user = result.user;
+  //       const role = "Worker"; 
+  //       const coins = 10;
 
-  const handleGoogleLogin = () => {
-    signInWithPopup(auth, googleProvider)
-      .then(async (result) => {
-        const user = result.user;
-        const role = "Worker"; 
-        const coins = 10;
+  //       await axios.post("http://localhost:5000/users", {
+  //         name: user.displayName,
+  //         email: user.email,
+  //         image: user.photoURL,
+  //         role,
+  //         coins,
+  //       });
 
-        await axios.post("http://localhost:5000/users", {
-          name: user.displayName,
-          email: user.email,
-          image: user.photoURL,
-          role,
-          coins,
-        });
-
-        setUser(user);
-        toast.success("Google Login Successful");
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error("Google Login Error:", error.message);
-        setError("Failed to login with Google.");
-      });
-  };
+  //       setUser(user);
+  //       toast.success("Google Login Successful");
+  //       navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Google Login Error:", error.message);
+  //       setError("Failed to login with Google.");
+  //     });
+  // };
 
 
   
@@ -94,7 +94,7 @@ const Register = () => {
     }
   };
   
-
+  
 
   return (
     <div className="bg-gray-100 flex justify-center items-center md:py-7  ">
@@ -139,7 +139,13 @@ const Register = () => {
               required
             />
           </div>
-          
+          <div className="form-control">
+            <label className="label">Role</label>
+            <select name="role" className="select select-bordered" required>
+              <option value="Worker">Worker</option>
+              <option value="Buyer">Buyer</option>
+            </select>
+          </div>
 
           <div className="form-control">
             <label className="label">
@@ -167,13 +173,7 @@ const Register = () => {
               </a>
             </label>
           </div>
-          <div className="form-control">
-            <label className="label">Role</label>
-            <select name="role" className="select select-bordered" required>
-              <option value="Worker">Worker</option>
-              <option value="Buyer">Buyer</option>
-            </select>
-          </div>
+          
           <div  className="form-control mt-3">
             <button type="submit" className="btn text-white bg-[#0F1035] w-full hover:bg-green-800  rounded-full">
               Register

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import { GrLogout } from "react-icons/gr";
 import { FaHome } from "react-icons/fa";
+import { AiOutlineBars } from "react-icons/ai";
 
 const Sidebar = () => {
   const { logOut } = useContext(AuthContext);
@@ -17,7 +18,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Small Screen Navbar */}
-      {/* <div className="bg-gray-100 text-gray-800 flex justify-between md:hidden">
+      <div className="bg-gray-100 text-gray-800 flex justify-between md:hidden">
         <div>
           <div className="block cursor-pointer p-4 font-bold">
             <Link to="/">
@@ -38,7 +39,7 @@ const Sidebar = () => {
         >
           <AiOutlineBars className="h-5 w-5" />
         </button>
-      </div> */}
+      </div>
 
       {/* Sidebar */}
       <div

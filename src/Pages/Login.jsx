@@ -1,34 +1,38 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import toast from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
 
 
 const Login = () => {
-  const { userLogIn, setUser, auth } = useContext(AuthContext);
+  const { userLogIn, setUser, handleGoogleLogin } = useContext(AuthContext);
 
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (user) {
+      navigate("/");
+    }
+  }, [auth, navigate]);
+  
 
-  const googleProvider = new GoogleAuthProvider();
+  // const handleGoogleLogin = () => {
+  //   signInWithPopup(auth, googleProvider)
+  //     .then((result) => {
+  //       const user = result.user;
+  //       setUser(user);
+  //       setError("");
+  //       toast.success("Successfully login.");
+  //       navigate("/");
+  //     })
 
-  const handleGoogleLogin = () => {
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        const user = result.user;
-        setUser(user);
-        setError("");
-        toast.success("Successfully login.");
-        navigate("/");
-      })
-
-      .catch((error) => {
-        setError("Failed to login with Google.");
-      });
-  };
+  //     .catch((error) => {
+  //       setError("Failed to login with Google.");
+  //     });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
