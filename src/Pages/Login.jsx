@@ -11,12 +11,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  useEffect(() => {
-    const user = auth.currentUser;
-    if (user) {
-      navigate("/");
-    }
-  }, [auth, navigate]);
+ 
   
 
   // const handleGoogleLogin = () => {
@@ -33,6 +28,14 @@ const Login = () => {
   //       setError("Failed to login with Google.");
   //     });
   // };
+  const handleGoogleLoginClick = async () => {
+    try {
+      await handleGoogleLogin();
+      navigate("/"); // Redirect after successful login
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -108,7 +111,7 @@ const Login = () => {
           <div className="divider text-black">OR</div>
 
           <button
-            onClick={handleGoogleLogin}
+            onClick={handleGoogleLoginClick}
             className="btn btn-outline  rounded-full"
           >
             Continue with Google

@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const AddNewTasks = () => {
-  const { user } = useContext(AuthContext);
+  const { user, coins } = useContext(AuthContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     taskTitle: "",
@@ -29,8 +29,8 @@ const AddNewTasks = () => {
       parseInt(formData.requiredWorkers) * parseInt(formData.payableAmount);
 
     
-    const userCoins = 100; 
-
+    const userCoins = `${coins}` ;
+    
     if (totalPayableAmount > userCoins) {
       Swal.fire({
         title: "Insufficient Coins",
@@ -89,7 +89,7 @@ const AddNewTasks = () => {
       
       <div className="bg-white shadow-lg mt-5 mb-10 rounded-lg w-full max-w-3xl px-8 py-6">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Add New Task
+          Add New Task {coins}
         </h2>
         <form onSubmit={handleAddTask} className="space-y-6">
           <div>

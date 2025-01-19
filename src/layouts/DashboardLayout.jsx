@@ -2,9 +2,10 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import { FaBell } from "react-icons/fa";
 
 const DashboardLayout = () => {
-  const { user, coins } = useContext(AuthContext);
+  const { user, coins  } = useContext(AuthContext);
   return (
     <div className="relative min-h-screen md:flex bg-white">
       {/* Left Side: Sidebar Component */}
@@ -13,9 +14,9 @@ const DashboardLayout = () => {
       <div className="flex-1 md:ml-64">
         <div className="border flex items-center justify-end text-right px-8">
           <div>
-            <h2 className="font-bold text-lg">Available coin {coins} </h2>
-            <h2>
-              {user?.role} | {user?.displayName}
+            <h2 className="font-bold  text-xl">Available coin  {coins} </h2>
+            <h2 className="flex gap-2 items-center">
+              {user.role} | {user?.displayName} <span className="font-normal text-base"><FaBell></FaBell></span>
             </h2>
           </div>
           <div className=" md:block">

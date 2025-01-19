@@ -53,7 +53,14 @@ const Register = () => {
   //     });
   // };
 
-
+  const handleGoogleLoginClick = async () => {
+    try {
+      await handleGoogleLogin();
+      navigate("/"); // Redirect after successful login
+    } catch (error) {
+      setError(error.message);
+    }
+  };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -182,7 +189,7 @@ const Register = () => {
           <div className="divider text-black">OR</div>
 
           <button
-            onClick={handleGoogleLogin}
+            onClick={handleGoogleLoginClick}
             className="btn btn-outline rounded-full"
           >
             Continue with Google
