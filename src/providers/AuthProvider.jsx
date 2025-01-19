@@ -115,6 +115,7 @@ const AuthProvider = ({ children }) => {
     updateUserProfile,
     logOut,
     auth,
+    setCoins,
   };
 
   return (

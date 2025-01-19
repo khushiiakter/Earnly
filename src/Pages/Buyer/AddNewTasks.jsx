@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const AddNewTasks = () => {
-  const { user, coins } = useContext(AuthContext);
+  const { user, coins, setCoins } = useContext(AuthContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     taskTitle: "",
@@ -37,7 +37,7 @@ const AddNewTasks = () => {
         text: "Not enough coins. Please purchase more coins to proceed.",
         icon: "error",
       });
-      navigate("/purchaseCoin"); // Navigate to the coin purchase page
+      navigate("/dashboard/purchaseCoin"); 
       return;
     }
 
@@ -56,6 +56,8 @@ const AddNewTasks = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
+          setCoins((prevCoins) => prevCoins - totalPayableAmount);
+
           Swal.fire({
             title: "Success!",
             text: "Task added successfully.",
