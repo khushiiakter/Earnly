@@ -236,7 +236,7 @@ const MyTasks = () => {
       </div>
 
       {isModalOpen && selectedTask && (
-        <div className="absolute  inset-0 bg-black bg-opacity-50 flex py-10 justify-center">
+        <div className="absolute z-20  inset-0 bg-black bg-opacity-50 flex py-10 justify-center">
           <div className="bg-white  p-6 rounded-lg shadow-lg w-full max-w-2xl ">
             <h2 className="text-2xl font-bold text-center mb-4">Update Task</h2>
             <form onSubmit={handleUpdate} className="space-y-4">
