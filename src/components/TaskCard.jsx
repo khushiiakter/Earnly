@@ -11,6 +11,7 @@ const TaskCard = ({ task }) => {
     requiredWorkers,
     
   } = task;
+  
   return (
     <div className="border flex flex-col rounded-lg shadow-lg p-4 bg-white">
       <div className="flex flex-col flex-grow">
@@ -30,7 +31,7 @@ const TaskCard = ({ task }) => {
         </p>
         
         <div className="mt-4">
-          <Link to={`/task-details/${_id}`}>
+          <Link to={`/dashboard/task-details/${_id}`}>
             <button className="text-white bg-blue-600 w-full hover:bg-blue-700 font-semibold px-4 py-2 rounded-md">
               View Details
             </button>

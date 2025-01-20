@@ -1,11 +1,12 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { FaBell } from "react-icons/fa";
 
 const DashboardLayout = () => {
   const { user, coins  } = useContext(AuthContext);
+  // const [tasks, setTasks] = useState([]);
   return (
     <div className="relative min-h-screen md:flex bg-white">
       {/* Left Side: Sidebar Component */}

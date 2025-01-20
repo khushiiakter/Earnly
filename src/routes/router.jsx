@@ -19,6 +19,7 @@ import PaymentHistory from "../Pages/Buyer/PaymentHistory";
 import AdminHome from "../Pages/Admin/AdminHome";
 import ManageUsers from "../Pages/Admin/ManageUsers";
 import ManageTasks from "../Pages/Admin/ManageTasks";
+import TaskDetail from "../components/TaskDetail";
 
 const router = createBrowserRouter([
     {
@@ -36,10 +37,7 @@ const router = createBrowserRouter([
             element: <h2>Available coin</h2>,
           
           },
-        
-
-        
-        
+      
         {
           path: "/auth",
           element: <AuthLayouts></AuthLayouts>,
@@ -71,6 +69,14 @@ const router = createBrowserRouter([
           path: 'tasks',
           element: <TaskList></TaskList>,
           loader: () => fetch('http://localhost:5000/tasks'),
+        },
+        {
+          path: "task-details/:id",
+          element:<PrivateRoute><TaskDetail></TaskDetail></PrivateRoute> ,
+          loader: ({params}) => fetch(`http://localhost:5000/tasks/${params.id}`),
+
+             
+          
         },
         {
           path: 'mySubmissions',
