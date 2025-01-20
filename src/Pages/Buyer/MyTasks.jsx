@@ -8,7 +8,7 @@ import useAxiosSecure from "../../components/hooks/useAxiosSecure";
 // import { Helmet } from "react-helmet-async";
 
 const MyTasks = () => {
-  const { user } = useContext(AuthContext);
+  const { user,coins, setCoins  } = useContext(AuthContext);
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,6 +70,14 @@ const MyTasks = () => {
               task._id === selectedTask._id ? { ...task, ...updatedTask } : task
             )
           );
+
+          axiosSecure.get(`/users/${user.email}`)
+          .then((res) => {
+            setCoins(res.data.coins);
+          })
+          .catch((err) => console.error("Error fetching updated user data:", err));
+
+
           closeModal();
         } else {
           toast.error("Failed to update the task.");
@@ -145,7 +153,7 @@ const MyTasks = () => {
                     Added Date
                   </th>
                   <th className="px-5 py-3 bg-white border-b text-gray-800 text-left text-sm uppercase font-normal">
-                    Total Payable Amount
+                  Completion Date
                   </th>
                   <th className="px-5 py-3 bg-white border-b text-gray-800 text-left text-sm uppercase font-normal">
                     Update
