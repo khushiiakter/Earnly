@@ -87,36 +87,35 @@ const MyTasks = () => {
   };
 
   // Handle task deletion
-  //   const handleDelete = (task) => {
-  //     Swal.fire({
-  //       title: "Are you sure?",
-  //       text: "You won't be able to revert this!",
-  //       icon: "warning",
-  //       showCancelButton: true,
-  //       confirmButtonColor: "#3085d6",
-  //       cancelButtonColor: "#d33",
-  //       confirmButtonText: "Yes, delete it!",
-  //     }).then((result) => {
-  //       if (result.isConfirmed) {
-  //         axios
-  //           .delete(`/tasks/${task._id}`)
-  //           .then((res) => {
-  //             if (res.data.success) {
-  //               Swal.fire("Deleted!", "Your task has been deleted.", "success");
-  //               setTasks(tasks.filter((t) => t._id !== task._id));
+    const handleDelete = (task) => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axiosSecure.delete(`/tasks/${task._id}`)
+            .then((res) => {
+              if (res.data.success) {
+                Swal.fire("Deleted!", "Your task has been deleted.", "success");
+                setTasks((prevTasks) => prevTasks.filter((t) => t._id !== task._id));
 
-  //               if (!task.isCompleted) {
-  //                 const refillAmount = task.requiredWorkers * task.payableAmount;
-  //                 axios.put(`/users/${user.email}/coins`, { coins: refillAmount });
-  //               }
-  //             } else {
-  //               Swal.fire("Error!", "Failed to delete task.", "error");
-  //             }
-  //           })
-  //           .catch((err) => console.error("Error deleting task:", err));
-  //       }
-  //     });
-  //   };
+                if (!task.isCompleted) {
+                  const refillAmount = task.requiredWorkers * task.payableAmount;
+                 setCoins((prevCoins) => prevCoins + refillAmount);
+                }
+              } else {
+                Swal.fire("Error!", "Failed to delete task.", "error");
+              }
+            })
+            .catch((err) => console.error("Error deleting task:", err));
+        }
+      });
+    };
 
   return (
     <section className="container px-4 mx-auto pt-12">
