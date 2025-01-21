@@ -72,7 +72,7 @@ const AddNewTasks = () => {
             submissionInfo: "",
             taskImageUrl: "",
           });
-          navigate("/dashboard/tasks"); // Navigate to tasks or dashboard page
+          navigate("/dashboard/myTasks"); 
         } else {
           Swal.fire({
             title: "Error!",

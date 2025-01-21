@@ -20,6 +20,7 @@ import AdminHome from "../Pages/Admin/AdminHome";
 import ManageUsers from "../Pages/Admin/ManageUsers";
 import ManageTasks from "../Pages/Admin/ManageTasks";
 import TaskDetail from "../components/TaskDetail";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
     {
@@ -109,39 +110,18 @@ const router = createBrowserRouter([
         },
         {
           path: 'adminHome',
-          element: <AdminHome></AdminHome>,
+          element:<AdminRoute><AdminHome></AdminHome></AdminRoute> ,
         },
         {
           path: 'manageUsers',
-          element: <ManageUsers></ManageUsers>,
+          element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute> ,
         },
         {
           path: 'manageTasks',
-          element: <ManageTasks></ManageTasks>
+          element:<AdminRoute><ManageTasks></ManageTasks></AdminRoute> 
         },
 
-        // admin only routes
-        // {
-        //   path: 'adminHome',
-        //   element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
-        // },
-        // {
-        //   path: 'addItems',
-        //   element: <AdminRoute><AddItems></AddItems></AdminRoute>
-        // },
-        // {
-        //   path: 'manageItems',
-        //   element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
-        // },
-        // {
-        //   path: 'updateItem/:id',
-        //   element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
-        //   loader: ({params}) => fetch(`https://bistro-boss-server-seven-sage.vercel.app/menu/${params.id}`)
-        // },
-        // {
-        //   path: 'users',
-        //   element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
-        // }
+       
 
       ]
     }
