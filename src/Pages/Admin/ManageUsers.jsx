@@ -14,7 +14,7 @@ const ManageUsers = () => {
   });
 
   const handleRoleChange = (user, newRole) => {
-    axiosSecure.put(`/users/${user._id}`, { role: newRole }).then((res) => {
+    axiosSecure.put(`/users/admin/${user._id}`, { role: newRole }).then((res) => {
       if (res.data.modifiedCount > 0) {
         refetch();
         Swal.fire("Updated!", `User role updated to ${newRole}.`, "success");
@@ -33,7 +33,7 @@ const ManageUsers = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/users/${user._id}`).then((res) => {
+        axiosSecure.delete(`/users/admin/${user._id}`).then((res) => {
           if (res.data.deletedCount > 0) {
             refetch();
             Swal.fire({

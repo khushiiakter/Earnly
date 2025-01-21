@@ -1,15 +1,15 @@
 import { Link, Outlet } from "react-router-dom";
-// import Sidebar from "../components/Sidebar";
+
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { FaBell, FaHome } from "react-icons/fa";
+import useAdmin from "../components/hooks/useAdmin";
 
 const DashboardLayout = () => {
   const { user, coins } = useContext(AuthContext);
 
-  const isAdmin = true;
-  const isBuyer = false;
-  const isWorker = false;
+  const isAdmin = useAdmin();
+
   // const [tasks, setTasks] = useState([]);
   return (
     // <div className="relative min-h-screen md:flex bg-white">
@@ -83,7 +83,7 @@ const DashboardLayout = () => {
         ></label>
         <ul className="menu bg-base-200 font-medium text-lg  p-4 space-y-2 min-h-full w-64 ">
           {/* Sidebar content here */}
-          {isAdmin && (
+          {isAdmin ? (
             <>
               <li>
                 <Link to="/dashboard/adminHome">Admin Home</Link>
@@ -95,8 +95,39 @@ const DashboardLayout = () => {
                 <Link to="/dashboard/manageTasks">Manage Task</Link>
               </li>
             </>
+          ) : (
+            <>
+              <li>
+                <Link to="/dashboard/buyerHome">Buyer Home</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/addNewTasks">Add new Tasks</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/myTasks">My Task's</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/purchaseCoin">Purchase Coin</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/paymentHistory">Payment history</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/workerHome">Worker Home</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/tasks">TaskList</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/mySubmissions">My Submissions</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/withdrawals">Withdrawals</Link>
+              </li>
+            </>
           )}
-          {isBuyer && (
+
+          {/* {isBuyer && (
             <>
              <li>
             <Link to="/dashboard/buyerHome">Buyer Home</Link>
@@ -130,8 +161,8 @@ const DashboardLayout = () => {
             <Link to="/dashboard/withdrawals">Withdrawals</Link>
           </li>
             </>
-          )}
-          
+          )} */}
+
           <hr />
 
           <li>

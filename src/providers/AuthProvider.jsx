@@ -11,8 +11,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import axios from "axios";
-
-
+import useAxiosPublic from "../components/hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -21,15 +20,12 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [coins, setCoins] = useState(0);
   const [loading, setLoading] = useState(true);
-  
-  
+  const axiosPublic = useAxiosPublic();
 
   const createNewUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
-
- 
 
   const userLogIn = (email, password) => {
     setLoading(true);
@@ -41,15 +37,16 @@ const AuthProvider = ({ children }) => {
       photoURL: photo,
     });
   };
-  
 
   const handleGoogleLogin = async () => {
     const googleProvider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      const { data } = await axios.get(`http://localhost:5000/users/${user.email}`);
-      
+      const { data } = await axios.get(
+        `http://localhost:5000/users/${user.email}`
+      );
+
       if (!data) {
         const role = "Worker";
         const coins = 10;
@@ -61,17 +58,15 @@ const AuthProvider = ({ children }) => {
           coins,
         });
       }
-      
+
       setUser(user);
-     
+
       return user;
     } catch (error) {
       console.error("Google Login Error:", error);
       throw new Error("Failed to login with Google.");
     }
   };
-
-  
 
   const logOut = () => {
     setLoading(true);
@@ -83,7 +78,8 @@ const AuthProvider = ({ children }) => {
       if (currentUser) {
         try {
           // Fetch user info from the backend
-          const { data } = await axios.get(`http://localhost:5000/users/${currentUser.email}`
+          const { data } = await axios.get(
+            `http://localhost:5000/users/${currentUser.email}`
           );
           setUser({
             ...currentUser,
@@ -91,18 +87,27 @@ const AuthProvider = ({ children }) => {
             coins: data.coins,
           });
           setCoins(data.coins || 0);
+          // Get JWT token
+          const userInfo = { email: currentUser.email };
+          axiosPublic.post("/jwt", userInfo).then((res) => {
+            if (res.data.token) {
+              localStorage.setItem("access-token", res.data.token);
+              setLoading(false);
+            }
+          });
         } catch (error) {
           console.error("Failed to fetch user data:", error);
         }
       } else {
+        localStorage.removeItem("access-token");
+        setLoading(false);
         setUser(null);
         setCoins(0);
       }
-      setLoading(false);
+      // setLoading(false);
     });
     return () => unsubscribe();
   }, []);
-  
 
   const authInfo = {
     user,
