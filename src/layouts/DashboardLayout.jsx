@@ -6,6 +6,10 @@ import { FaBell, FaHome } from "react-icons/fa";
 
 const DashboardLayout = () => {
   const { user, coins } = useContext(AuthContext);
+
+  const isAdmin = true;
+  const isBuyer = false;
+  const isWorker = false;
   // const [tasks, setTasks] = useState([]);
   return (
     // <div className="relative min-h-screen md:flex bg-white">
@@ -62,7 +66,7 @@ const DashboardLayout = () => {
         <div className="p-5 min-h-screen">
           <Outlet></Outlet>
         </div>
-        
+
         <label
           htmlFor="my-drawer-2"
           className="btn btn-primary drawer-button lg:hidden"
@@ -79,19 +83,22 @@ const DashboardLayout = () => {
         ></label>
         <ul className="menu bg-base-200 font-medium text-lg  p-4 space-y-2 min-h-full w-64 ">
           {/* Sidebar content here */}
-          <li>
-            <Link to="/dashboard/workerHome">Worker Home</Link>
-          </li>
-          <li>
-            <Link to="/dashboard/tasks">TaskList</Link>
-          </li>
-          <li>
-            <Link to="/dashboard/mySubmissions">My Submissions</Link>
-          </li>
-          <li>
-            <Link to="/dashboard/withdrawals">Withdrawals</Link>
-          </li>
-          <li>
+          {isAdmin && (
+            <>
+              <li>
+                <Link to="/dashboard/adminHome">Admin Home</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/manageUsers">Manage Users</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/manageTasks">Manage Task</Link>
+              </li>
+            </>
+          )}
+          {isBuyer && (
+            <>
+             <li>
             <Link to="/dashboard/buyerHome">Buyer Home</Link>
           </li>
           <li>
@@ -106,15 +113,27 @@ const DashboardLayout = () => {
           <li>
             <Link to="/dashboard/paymentHistory">Payment history</Link>
           </li>
-          <li>
-            <Link to="/dashboard/adminHome">Admin Home</Link>
+            </>
+          )}
+          {isWorker && (
+            <>
+              <li>
+            <Link to="/dashboard/workerHome">Worker Home</Link>
           </li>
           <li>
-            <Link to="/dashboard/manageUsers">Manage Users</Link>
+            <Link to="/dashboard/tasks">TaskList</Link>
           </li>
           <li>
-            <Link to="/dashboard/manageTasks">Manage Task</Link>
+            <Link to="/dashboard/mySubmissions">My Submissions</Link>
           </li>
+          <li>
+            <Link to="/dashboard/withdrawals">Withdrawals</Link>
+          </li>
+            </>
+          )}
+          
+          <hr />
+
           <li>
             <Link to="/">
               <FaHome></FaHome>
