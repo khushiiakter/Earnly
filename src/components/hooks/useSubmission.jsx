@@ -8,11 +8,11 @@ const useSubmission = () => {
     const { refetch, data: submission = [] } = useQuery({
         queryKey: ['submission', user?.email],
         queryFn: async() => {
-            const res = await axiosSecure.get(`/submissions?email=${user.email}`);
+            const res = await axiosSecure.get(`/submissions?worker_email=${user?.email}`);
             return res.data;
         }
     })
-
+    
     return [submission, refetch]
 };
 

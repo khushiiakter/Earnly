@@ -33,6 +33,7 @@ const TaskDetail = () => {
     const submissionData = {
       task_id: id,
       task_title: taskTitle,
+      image: taskImageUrl,
       payable_amount: payableAmount,
       worker_email: user?.email,
       submission_details: submissionDetails,
