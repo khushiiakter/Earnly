@@ -8,7 +8,7 @@ import useAdmin from "../components/hooks/useAdmin";
 const DashboardLayout = () => {
   const { user, coins } = useContext(AuthContext);
 
-  const isAdmin = useAdmin();
+  const [isAdmin] = useAdmin();
 
   // const [tasks, setTasks] = useState([]);
   return (
