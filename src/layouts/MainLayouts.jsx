@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 
 import { Toaster } from "react-hot-toast";
 import Navbar from "../components/Shared/Navbar";
+import Footer from "../components/Shared/Footer";
 
 const MainLayouts = () => {
   return (
@@ -10,6 +11,7 @@ const MainLayouts = () => {
       <div className="min-h-[calc(100vh-68px)]">
         <Outlet />
       </div>
+      <Footer></Footer>
       <Toaster />
     </div>
   );

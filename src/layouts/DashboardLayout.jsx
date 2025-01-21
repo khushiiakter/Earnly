@@ -2,9 +2,10 @@ import { Link, Outlet } from "react-router-dom";
 
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import { FaBell, FaHome } from "react-icons/fa";
+import { FaBars, FaBell, FaHome } from "react-icons/fa";
 import useAdmin from "../components/hooks/useAdmin";
 import useBuyer from "../components/hooks/useBuyer";
+import DashboardFooter from "../components/Shared/DashboardFooter";
 
 const DashboardLayout = () => {
   const { user, coins } = useContext(AuthContext);
@@ -14,39 +15,38 @@ const DashboardLayout = () => {
 
   // const [tasks, setTasks] = useState([]);
   return (
-    
-
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
       <div className="drawer-content flex flex-col ">
-        <div className="border w-full flex items-center justify-end text-right px-8">
-          <div>
-            <h2 className="font-bold  ">Available coins <span className="text-xl">{coins}</span> </h2>
-            <h2 className="flex gap-2 items-center">
-              {user.role} | {user?.displayName}{" "}
-              <span className="font-normal text-base">
-                <FaBell></FaBell>
-              </span>
-            </h2>
-          </div>
-          <div className=" md:block">
-            <img
-              src={user?.photoURL}
-              className="border-2 border-[#e3e5f3d5] w-11 h-11 rounded-full object-cover cursor-pointer ml-4"
-            />
+        <div className="border w-full flex items-center justify-between md:justify-end text-right px-8">
+          <label htmlFor="my-drawer-2" className=" drawer-button lg:hidden">
+            <FaBars></FaBars>
+          </label>
+          <div className="flex items-center justify-end">
+            <div>
+              <h2 className="font-bold  ">
+                Available coins <span className="text-xl">{coins}</span>{" "}
+              </h2>
+              <h2 className="flex gap-2 items-center">
+                {user.role} | {user?.displayName}{" "}
+                <span className="font-normal text-base">
+                  <FaBell></FaBell>
+                </span>
+              </h2>
+            </div>
+            <div className=" md:block">
+              <img
+                src={user?.photoURL}
+                className="border-2 border-[#e3e5f3d5] w-11 h-11 rounded-full object-cover cursor-pointer ml-4"
+              />
+            </div>
           </div>
         </div>
         <div className="p-5 min-h-screen">
           <Outlet></Outlet>
         </div>
-
-        <label
-          htmlFor="my-drawer-2"
-          className="btn btn-primary drawer-button lg:hidden"
-        >
-          Open drawer
-        </label>
+        <DashboardFooter></DashboardFooter>
       </div>
 
       <div className="drawer-side ">
@@ -57,7 +57,7 @@ const DashboardLayout = () => {
         ></label>
         <ul className="menu bg-base-200 font-medium text-lg  p-4 space-y-2 min-h-full w-64 ">
           {/* Sidebar content here */}
-          {isAdmin && (
+          {isAdmin && 
             <>
               <li>
                 <Link to="/dashboard/adminHome">Admin Home</Link>
@@ -69,7 +69,7 @@ const DashboardLayout = () => {
                 <Link to="/dashboard/manageTasks">Manage Task</Link>
               </li>
             </>
-          )}
+          }
 
           {isBuyer && (
             <>
@@ -89,24 +89,23 @@ const DashboardLayout = () => {
                 <Link to="/dashboard/paymentHistory">Payment history</Link>
               </li>
             </>
-          )} 
-          
-          
-          { !isBuyer && (
+          )}
+
+          {!isBuyer && !isAdmin && (
             <>
-                <li>
-                  <Link to="/dashboard/workerHome">Worker Home</Link>
-                </li>
-                <li>
-                  <Link to="/dashboard/tasks">TaskList</Link>
-                </li>
-                <li>
-                  <Link to="/dashboard/mySubmissions">My Submissions</Link>
-                </li>
-                <li>
-                  <Link to="/dashboard/withdrawals">Withdrawals</Link>
-                </li>
-              </>
+              <li>
+                <Link to="/dashboard/workerHome">Worker Home</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/tasks">TaskList</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/mySubmissions">My Submissions</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/withdrawals">Withdrawals</Link>
+              </li>
+            </>
           )}
           <div className="divider"></div>
           <li>
