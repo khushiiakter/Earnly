@@ -118,7 +118,8 @@ const router = createBrowserRouter([
         },
         {
           path: 'manageTasks',
-          element:<AdminRoute><ManageTasks></ManageTasks></AdminRoute> 
+          element:<AdminRoute><ManageTasks></ManageTasks></AdminRoute> ,
+          loader: () => fetch('https://earnly-server.vercel.app/tasks'),
         },
 
        
