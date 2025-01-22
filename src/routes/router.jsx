@@ -69,12 +69,12 @@ const router = createBrowserRouter([
         {
           path: 'tasks',
           element: <TaskList></TaskList>,
-          loader: () => fetch('http://localhost:5000/tasks'),
+          loader: () => fetch('https://earnly-server.vercel.app/tasks'),
         },
         {
           path: "task-details/:id",
           element:<PrivateRoute><TaskDetail></TaskDetail></PrivateRoute> ,
-          loader: ({params}) => fetch(`http://localhost:5000/tasks/${params.id}`),
+          loader: ({params}) => fetch(`https://earnly-server.vercel.app/tasks/${params.id}`),
 
              
           

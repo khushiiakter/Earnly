@@ -35,7 +35,7 @@ const Register = () => {
   //       const role = "Worker"; 
   //       const coins = 10;
 
-  //       await axios.post("http://localhost:5000/users", {
+  //       await axios.post("https://earnly-server.vercel.app/users", {
   //         name: user.displayName,
   //         email: user.email,
   //         image: user.photoURL,
@@ -84,7 +84,7 @@ const Register = () => {
 
       await updateUserProfile(name, photo);
 
-      await axios.post("http://localhost:5000/users", {
+      await axios.post("https://earnly-server.vercel.app/users", {
         name,
         email,
         image: photo,

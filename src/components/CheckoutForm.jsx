@@ -14,7 +14,7 @@ const CheckoutForm = ({ selectedCoins }) => {
 
     const updateCoins = async (email, coins) => {
         try {
-          const response = await axios.patch(`http://localhost:5000/users/${email}`, { coins });
+          const response = await axios.patch(`https://earnly-server.vercel.app/users/${email}`, { coins });
           if (response.status === 200) {
             setCoins(coins); // Update the state with the new coins
           }
@@ -45,7 +45,7 @@ const CheckoutForm = ({ selectedCoins }) => {
 
         try {
             // Create payment intent on the server
-            const response = await fetch("http://localhost:5000/api/create-payment-intent", {
+            const response = await fetch("https://earnly-server.vercel.app/api/create-payment-intent", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -77,7 +77,7 @@ const CheckoutForm = ({ selectedCoins }) => {
                 setSuccessMessage(`Payment successful! You have purchased ${selectedCoins.coins} coins.`);
 
                 // Save the payment info to the database
-                await axios.post("http://localhost:5000/payments", {
+                await axios.post("https://earnly-server.vercel.app/payments", {
                     email: user.email,
                     amount: selectedCoins.price,
                     coins: selectedCoins.coins,

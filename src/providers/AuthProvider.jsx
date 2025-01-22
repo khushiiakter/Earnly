@@ -44,13 +44,13 @@ const AuthProvider = ({ children }) => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       const { data } = await axios.get(
-        `http://localhost:5000/users/${user.email}`
+        `https://earnly-server.vercel.app/users/${user.email}`
       );
 
       if (!data) {
         const role = "Worker";
         const coins = 10;
-        await axios.post("http://localhost:5000/users", {
+        await axios.post("https://earnly-server.vercel.app/users", {
           name: user.displayName,
           email: user.email,
           image: user.photoURL,
@@ -79,7 +79,7 @@ const AuthProvider = ({ children }) => {
         try {
           // Fetch user info from the backend
           const { data } = await axios.get(
-            `http://localhost:5000/users/${currentUser.email}`
+            `https://earnly-server.vercel.app/users/${currentUser.email}`
           );
           setUser({
             ...currentUser,

@@ -48,7 +48,7 @@ const AddNewTasks = () => {
       addedDate: new Date().toISOString().split("T")[0],
     };
 
-    fetch("http://localhost:5000/tasks", {
+    fetch("https://earnly-server.vercel.app/tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newTask),
