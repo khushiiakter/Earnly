@@ -1,12 +1,29 @@
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
+import { useState, useContext } from "react";
+import axios from "axios";
+import { AuthContext } from "../providers/AuthProvider";
+// import { AuthContext } from "../context/AuthProvider";  
 
 const CheckoutForm = ({ selectedCoins }) => {
     const stripe = useStripe();
     const elements = useElements();
+    const { user, setCoins,coins } = useContext(AuthContext);  
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
+
+    const updateCoins = async (email, coins) => {
+        try {
+          const response = await axios.patch(`http://localhost:5000/users/${email}`, { coins });
+          if (response.status === 200) {
+            setCoins(coins); // Update the state with the new coins
+          }
+        } catch (error) {
+          console.error("Failed to update user coins:", error.response?.data?.message || error.message);
+          setErrorMessage("Failed to update coins. Please try again.");
+        }
+      };
+      
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -27,7 +44,7 @@ const CheckoutForm = ({ selectedCoins }) => {
         setIsLoading(true);
 
         try {
-            // Replace the following API call with your backend's payment intent creation route
+            // Create payment intent on the server
             const response = await fetch("http://localhost:5000/api/create-payment-intent", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -42,11 +59,12 @@ const CheckoutForm = ({ selectedCoins }) => {
 
             const { clientSecret } = await response.json();
 
+            // Confirm the payment with Stripe
             const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: cardElement,
                     billing_details: {
-                        name: "Test User", // Replace with dynamic data if needed
+                        name: user.displayName || "Test User",  
                     },
                 },
             });
@@ -57,6 +75,19 @@ const CheckoutForm = ({ selectedCoins }) => {
 
             if (paymentIntent?.status === "succeeded") {
                 setSuccessMessage(`Payment successful! You have purchased ${selectedCoins.coins} coins.`);
+
+                // Save the payment info to the database
+                await axios.post("http://localhost:5000/payments", {
+                    email: user.email,
+                    amount: selectedCoins.price,
+                    coins: selectedCoins.coins,
+                    transactionId: paymentIntent.id,
+                    date: new Date().toISOString(),
+                });
+
+                // Update the user's coins
+                const newCoins = user.coins + selectedCoins.coins;
+                updateCoins(user.email, newCoins);
             } else {
                 setErrorMessage("Payment failed. Please try again.");
             }
@@ -70,16 +101,19 @@ const CheckoutForm = ({ selectedCoins }) => {
     return (
         <div className="checkout-form border p-4 rounded-lg shadow-md">
             <h3 className="text-lg font-bold mb-4 text-center">Complete Your Payment</h3>
+
             {errorMessage && (
                 <div className="error-message text-red-600 mb-4 text-center">
                     {errorMessage}
                 </div>
             )}
+
             {successMessage && (
                 <div className="success-message text-green-600 mb-4 text-center">
                     {successMessage}
                 </div>
             )}
+
             {!successMessage && (
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
@@ -102,6 +136,7 @@ const CheckoutForm = ({ selectedCoins }) => {
                             className="p-2 border rounded-lg"
                         />
                     </div>
+
                     <button
                         type="submit"
                         disabled={!stripe || isLoading}
