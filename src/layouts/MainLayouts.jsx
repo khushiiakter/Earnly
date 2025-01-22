@@ -8,7 +8,7 @@ const MainLayouts = () => {
   return (
     <div className="bg-white">
       <Navbar></Navbar>
-      <div className="min-h-[calc(100vh-68px)]">
+      <div className="min-h-screen">
         <Outlet />
       </div>
       <Footer></Footer>
