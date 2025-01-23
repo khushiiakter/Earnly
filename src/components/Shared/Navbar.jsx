@@ -1,10 +1,16 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import useAdmin from "../hooks/useAdmin";
+import useBuyer from "../hooks/useBuyer";
 
 const Navbar = () => {
   const { user, logOut, coins } = useContext(AuthContext);
-  
+  const [isAdmin] = useAdmin();
+  const [isBuyer] = useBuyer();
+  const isWorker = !isBuyer && !isAdmin;
+
+  const dashboardRoute = isAdmin ? "/dashboard/adminHome" : isBuyer ? "/dashboard/buyerHome" : "/dashboard/workerHome"; 
   const navOptions = (
     <>
       <li>
@@ -23,7 +29,7 @@ const Navbar = () => {
         <>
           <li><Link >Available Coin{coins}</Link></li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to={dashboardRoute}>Dashboard</Link>
           </li>
         </>
       ) : (

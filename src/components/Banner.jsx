@@ -34,7 +34,7 @@ const Banner = () => {
                 Get Started
               </button>
             </div>
-            <div className="w-1/2">
+            <div className="w-1/2 md:h-[560px]">
               <img
                 src={img1}
                 alt="Earning Opportunity"
@@ -59,7 +59,7 @@ const Banner = () => {
                 Learn More
               </button>
             </div>
-            <div className="w-1/2">
+            <div className="w-1/2 md:h-[560px]">
               <img
                 src={img2}
                 alt="Income Control"
@@ -84,7 +84,7 @@ const Banner = () => {
                 Learn More
               </button>
             </div>
-            <div className="w-1/2">
+            <div className="w-1/2 md:h-[560px]">
               <img
                 src={img3}
                 alt="Trusted Reviews"

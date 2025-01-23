@@ -12,6 +12,7 @@ const DashboardLayout = () => {
 
   const [isAdmin] = useAdmin();
   const [isBuyer] = useBuyer();
+  const isWorker = !isBuyer && !isAdmin;
 
   // const [tasks, setTasks] = useState([]);
   return (
@@ -57,7 +58,11 @@ const DashboardLayout = () => {
         ></label>
         <ul className="menu bg-base-200 font-medium text-lg  p-4 space-y-2 min-h-full w-64 ">
           {/* Sidebar content here */}
-          {isAdmin && 
+          <Link to="/" className="flex justify-center border-b-2 pb-1.5 items-center md:gap-1 ">
+            {/* <img src={logo} className="h-7 md:block hidden" alt="" /> */}
+            <p className="md:text-2xl text-lg font-bold">Earnly</p>
+          </Link>
+          {isAdmin && (
             <>
               <li>
                 <Link to="/dashboard/adminHome">Admin Home</Link>
@@ -69,7 +74,7 @@ const DashboardLayout = () => {
                 <Link to="/dashboard/manageTasks">Manage Task</Link>
               </li>
             </>
-          }
+          )}
 
           {isBuyer && (
             <>
@@ -91,7 +96,7 @@ const DashboardLayout = () => {
             </>
           )}
 
-          {!isBuyer && !isAdmin && (
+          {isWorker && (
             <>
               <li>
                 <Link to="/dashboard/workerHome">Worker Home</Link>

@@ -5,7 +5,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const MySubmissions = () => {
-  const [submission, refetch] = useSubmission();
+  const [submissions, refetch] = useSubmission();
   const axiosSecure = useAxiosSecure();
   
   const handleDelete = (id) => {
@@ -36,7 +36,7 @@ const MySubmissions = () => {
   return (
     <div>
       <div className="flex justify-evenly mb-8">
-        <h2 className="text-4xl">Submissions: {submission.length}</h2>
+        <h2 className="text-4xl">Submissions: {submissions.length}</h2>
         <h2 className="text-4xl">Total Price: </h2>
         {/* {submission.length ? (
           <Link to="/dashboard/payment">
@@ -65,7 +65,7 @@ const MySubmissions = () => {
             </tr>
           </thead>
           <tbody>
-            {submission.map((item, index) => (
+            {submissions.map((item, index) => (
               <tr key={item._id}>
                 <th>{index + 1}</th>
                 <td>
