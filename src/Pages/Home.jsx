@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import AboutUs from "../components/AboutUs";
 import Banner from "../components/Banner";
 import Membership from "../components/Membership";
@@ -8,9 +9,11 @@ import WhyUs from "../components/WhyUs";
 const Home = () => {
   return (
     <>
+      <Helmet>
+        <title>Home - Earnly</title>
+      </Helmet>
       <div className="">
         <Banner></Banner>
-
       </div>
       <div className="container py-8 mx-auto md:px-4 px-2">
         <TopWorkers></TopWorkers>
@@ -27,8 +30,6 @@ const Home = () => {
       <div className="container py-8 mx-auto md:px-3">
         <Membership></Membership>
       </div>
-
-      
     </>
   );
 };

@@ -1,90 +1,135 @@
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../components/hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const AdminHome = () => {
-    const [withdrawals, setWithdrawals] = useState([]);
-    const [stats, setStats] = useState({
-        totalWorkers: 0,
-        totalEarnings: 0,
-        pendingWithdrawals: 0,
-    });
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [stats, setStats] = useState({});
+  const [withdrawals, setWithdrawals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const axiosSecure = useAxiosSecure();
 
-    const axiosSecure = useAxiosSecure();
+  useEffect(() => {
+    const fetchAdminData = async () => {
+      try {
+        const [statsRes, withdrawalsRes] = await Promise.all([
+          axiosSecure.get("/admin/stats"),
+          axiosSecure.get("/withdrawals"),
+        ]);
+        setStats(statsRes.data);
+        setWithdrawals(withdrawalsRes.data);
+      } catch (error) {
+        console.error("Error fetching admin data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchAdminData();
+  }, [axiosSecure]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true);
-            setError(null); 
-            try {
-                const [statsResponse, withdrawalsResponse] = await Promise.all([
-                    axiosSecure.get("/admin/stats"),
-                    axiosSecure.get("/withdrawals"),
-                ]);
-                setStats(statsResponse.data);
-                setWithdrawals(withdrawalsResponse.data);
-            } catch (err) {
-                setError("Failed to fetch data. Please try again.");
-                console.error(err);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchData();
-    }, [axiosSecure]);
-
-    if (isLoading) {
-        return <div className="text-center mt-10">Loading...</div>;
+  const handleApprove = async (id) => {
+    try {
+      await axiosSecure.patch(`/withdrawals/${id}`);
+      setWithdrawals((prev) => prev.filter((item) => item._id !== id));
+    } catch (error) {
+      console.error("Error approving withdrawal:", error);
     }
+  };
 
-    if (error) {
-        return <div className="text-center mt-10 text-red-600">{error}</div>;
-    }
+  if (isLoading) {
+    return <div className="text-center mt-10">Loading...</div>;
+  }
 
-    return (
-        <div className="admin-home-page">
-            <div className="max-w-7xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-                <h1 className="text-3xl font-semibold text-center mb-6 text-gray-800">
-                    Admin Dashboard
-                </h1>
-                
-                {/* Platform Stats */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    {/* Render Stats */}
-                </div>
+  return (
+    <div className="admin-home-page p-6 bg-gray-100 min-h-screen">
+      <Helmet>
+        <title>Admin Home - Earnly</title>
+      </Helmet>
+      <h1 className="text-3xl font-semibold text-center mb-8 text-gray-800">
+        Admin Dashboard
+      </h1>
 
-                {/* Withdrawal Requests */}
-                <div>
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                        Recent Withdrawals
-                    </h2>
-                    <div className="overflow-x-auto">
-                        <table className="table-auto w-full border-collapse border border-gray-300">
-                            <thead className="bg-gray-100">
-                                {/* Table Headers */}
-                            </thead>
-                            <tbody>
-                                {withdrawals.length === 0 ? (
-                                    <tr>
-                                        <td colSpan="6" className="text-center text-gray-500 py-4">
-                                            No withdrawal requests found.
-                                        </td>
-                                    </tr>
-                                ) : (
-                                    withdrawals.map((withdrawal) => (
-                                        <tr key={withdrawal.id} className="text-center">
-                                            {/* Render Withdrawal Row */}
-                                        </tr>
-                                    ))
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+      {/* Stats Section */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="p-4 bg-white shadow-md rounded-md text-center">
+          <h2 className="text-xl font-medium text-gray-700">Total Workers</h2>
+          <p className="text-2xl font-bold text-[#5f1a89]">
+            {stats.totalWorkers}
+          </p>
         </div>
-    );
+        <div className="p-4 bg-white shadow-md rounded-md text-center">
+          <h2 className="text-xl font-medium text-gray-700">Total Buyers</h2>
+          <p className="text-2xl font-bold text-[#5f1a89]">
+            {stats.totalBuyers}
+          </p>
+        </div>
+        <div className="p-4 bg-white shadow-md rounded-md text-center">
+          <h2 className="text-xl font-medium text-gray-700">Total Coins</h2>
+          <p className="text-2xl font-bold text-[#5f1a89]">
+            {stats.totalCoins}
+          </p>
+        </div>
+        <div className="p-4 bg-white shadow-md rounded-md text-center">
+          <h2 className="text-xl font-medium text-gray-700">Total Payments</h2>
+          <p className="text-2xl font-bold text-[#5f1a89]">
+            {stats.totalPayments}
+          </p>
+        </div>
+      </div>
+
+      {/* Withdrawal Requests Section */}
+      <div className="bg-white p-6 shadow-md rounded-md">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+          Pending Withdrawals
+        </h2>
+        {withdrawals.length === 0 ? (
+          <p className="text-center text-gray-500">
+            No withdrawal requests found.
+          </p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="min-w-full border-collapse border border-gray-300">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="border border-gray-300 px-4 py-2 text-left text-gray-700 font-medium">
+                    Email
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left text-gray-700 font-medium">
+                    Amount
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left text-gray-700 font-medium">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {withdrawals.map((withdrawal) => (
+                  <tr
+                    key={withdrawal._id}
+                    className="bg-white hover:bg-gray-50"
+                  >
+                    <td className="border border-gray-300 px-4 py-2">
+                      {withdrawal.email}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {withdrawal.amount}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      <button
+                        onClick={() => handleApprove(withdrawal._id)}
+                        className="bg-[#5f1a89] text-white px-4 py-2 rounded hover:bg-[#9548c5] transition"
+                      >
+                        Approve
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default AdminHome;

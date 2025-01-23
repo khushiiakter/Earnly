@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const { createNewUser, setUser, updateUserProfile, auth, handleGoogleLogin } =
@@ -13,15 +14,13 @@ const Register = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  
-
   const isPasswordValid = (password) => {
     const minLength = password.length >= 6;
     const hasUppercase = /[A-Z]/.test(password);
     const hasLowercase = /[a-z]/.test(password);
     return minLength && hasUppercase && hasLowercase;
   };
- 
+
   useEffect(() => {
     const user = auth.currentUser;
     if (user) {
@@ -32,7 +31,7 @@ const Register = () => {
   //   signInWithPopup(auth, googleProvider)
   //     .then(async (result) => {
   //       const user = result.user;
-  //       const role = "Worker"; 
+  //       const role = "Worker";
   //       const coins = 10;
 
   //       await axios.post("https://earnly-server.vercel.app/users", {
@@ -61,7 +60,7 @@ const Register = () => {
       setError(error.message);
     }
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -100,11 +99,12 @@ const Register = () => {
       setError("Failed to register. Email may already exist.");
     }
   };
-  
-  
 
   return (
     <div className="bg-gray-100 flex justify-center items-center md:py-7  ">
+      <Helmet>
+        <title>Register - Earnly</title>
+      </Helmet>
       <div className="card bg-[#e3e5f3d5] w-full  md:max-w-lg shrink-0 md:border-2 border-[#556180] md:rounded-3xl rounded-none md:p-9 px-1 py-6">
         <h2 className="text-3xl font-semibold text-center">
           Register your account
@@ -180,9 +180,12 @@ const Register = () => {
               </a>
             </label>
           </div>
-          
-          <div  className="form-control mt-3">
-            <button type="submit" className="btn text-white bg-[#0F1035] w-full hover:bg-green-800  rounded-full">
+
+          <div className="form-control mt-3">
+            <button
+              type="submit"
+              className="btn text-white bg-[#0F1035] w-full hover:bg-green-800  rounded-full"
+            >
               Register
             </button>
           </div>

@@ -1,8 +1,8 @@
-
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const AddNewTasks = () => {
   const { user, coins, setCoins } = useContext(AuthContext);
@@ -28,16 +28,15 @@ const AddNewTasks = () => {
     const totalPayableAmount =
       parseInt(formData.requiredWorkers) * parseInt(formData.payableAmount);
 
-    
-    const userCoins = `${coins}` ;
-    
+    const userCoins = `${coins}`;
+
     if (totalPayableAmount > userCoins) {
       Swal.fire({
         title: "Insufficient Coins",
         text: "Not enough coins. Please purchase more coins to proceed.",
         icon: "error",
       });
-      navigate("/dashboard/purchaseCoin"); 
+      navigate("/dashboard/purchaseCoin");
       return;
     }
 
@@ -72,7 +71,7 @@ const AddNewTasks = () => {
             submissionInfo: "",
             taskImageUrl: "",
           });
-          navigate("/dashboard/myTasks"); 
+          navigate("/dashboard/myTasks");
         } else {
           Swal.fire({
             title: "Error!",
@@ -83,19 +82,20 @@ const AddNewTasks = () => {
       });
   };
 
-
-
-
   return (
     <div className="flex items-center justify-center bg-gray-100">
-      
+      <Helmet>
+        <title>Earnly - AddNewTask </title>
+      </Helmet>
       <div className="bg-white shadow-lg mt-5 mb-10 rounded-lg w-full max-w-3xl px-8 py-6">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Add New Task {coins}
         </h2>
         <form onSubmit={handleAddTask} className="space-y-6">
           <div>
-            <label className="block font-medium text-gray-700">Task Title</label>
+            <label className="block font-medium text-gray-700">
+              Task Title
+            </label>
             <input
               type="text"
               name="taskTitle"
@@ -107,7 +107,9 @@ const AddNewTasks = () => {
             />
           </div>
           <div>
-            <label className="block font-medium text-gray-700">Task Details</label>
+            <label className="block font-medium text-gray-700">
+              Task Details
+            </label>
             <textarea
               name="taskDetails"
               value={formData.taskDetails}
@@ -149,7 +151,9 @@ const AddNewTasks = () => {
             </div>
           </div>
           <div>
-            <label className="block font-medium text-gray-700">Completion Date</label>
+            <label className="block font-medium text-gray-700">
+              Completion Date
+            </label>
             <input
               type="date"
               name="completionDate"
@@ -160,7 +164,9 @@ const AddNewTasks = () => {
             />
           </div>
           <div>
-            <label className="block font-medium text-gray-700">Submission Info</label>
+            <label className="block font-medium text-gray-700">
+              Submission Info
+            </label>
             <input
               type="text"
               name="submissionInfo"
@@ -172,7 +178,9 @@ const AddNewTasks = () => {
             />
           </div>
           <div>
-            <label className="block font-medium text-gray-700">Task Image URL</label>
+            <label className="block font-medium text-gray-700">
+              Task Image URL
+            </label>
             <input
               type="url"
               name="taskImageUrl"

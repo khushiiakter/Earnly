@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import toast from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
-
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { userLogIn, setUser, handleGoogleLogin } = useContext(AuthContext);
@@ -11,8 +11,6 @@ const Login = () => {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
- 
-  
 
   // const handleGoogleLogin = () => {
   //   signInWithPopup(auth, googleProvider)
@@ -57,7 +55,9 @@ const Login = () => {
 
   return (
     <div className=" flex justify-center items-center md:pt-7 pb-14 bg-gray-100 w-full   ">
-      
+      <Helmet>
+        <title>Login - Earnly</title>
+      </Helmet>
       <div className="card bg-[#e3e5f3d5]  w-full  md:max-w-lg shrink-0 md:border-2 border-[#556180] md:rounded-3xl rounded-none md:p-9 px-1 py-6">
         <h2 className="text-3xl font-semibold text-center">
           Login your account

@@ -6,6 +6,7 @@ import { FaBars, FaBell, FaHome } from "react-icons/fa";
 import useAdmin from "../components/hooks/useAdmin";
 import useBuyer from "../components/hooks/useBuyer";
 import DashboardFooter from "../components/Shared/DashboardFooter";
+import { Helmet } from "react-helmet-async";
 
 const DashboardLayout = () => {
   const { user, coins } = useContext(AuthContext);
@@ -17,6 +18,9 @@ const DashboardLayout = () => {
   // const [tasks, setTasks] = useState([]);
   return (
     <div className="drawer lg:drawer-open">
+      <Helmet>
+        <title>Dashboard - Earnly</title>
+      </Helmet>
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
       <div className="drawer-content flex flex-col ">
@@ -58,7 +62,10 @@ const DashboardLayout = () => {
         ></label>
         <ul className="menu bg-base-200 font-medium text-lg  p-4 space-y-2 min-h-full w-64 ">
           {/* Sidebar content here */}
-          <Link to="/" className="flex justify-center border-b-2 pb-1.5 items-center md:gap-1 ">
+          <Link
+            to="/"
+            className="flex justify-center border-b-2 pb-1.5 items-center md:gap-1 "
+          >
             {/* <img src={logo} className="h-7 md:block hidden" alt="" /> */}
             <p className="md:text-2xl text-lg font-bold">Earnly</p>
           </Link>

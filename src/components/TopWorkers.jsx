@@ -1,13 +1,13 @@
-// import axios from "axios";
+
 import { useEffect, useState } from "react";
-import useAxiosPublic from "./hooks/useAxiosPublic";
+import useAxiosPublic from "../components/hooks/useAxiosPublic";
 
 const TopWorkers = () => {
     const [workers, setWorkers] = useState([]);
     const  axiosPublic = useAxiosPublic();
   useEffect(() => {
     const fetchTopWorkers = async () => {
-      const response = await axiosPublic.get('/top-workers');
+      const response = await axiosPublic.get('/topWorkers');
       setWorkers(response.data);
     };
     fetchTopWorkers();

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import useAdmin from "../hooks/useAdmin";
 import useBuyer from "../hooks/useBuyer";
+import Coin from "../../assets/coin.png";
 
 const Navbar = () => {
   const { user, logOut, coins } = useContext(AuthContext);
@@ -10,14 +11,20 @@ const Navbar = () => {
   const [isBuyer] = useBuyer();
   const isWorker = !isBuyer && !isAdmin;
 
-  const dashboardRoute = isAdmin ? "/dashboard/adminHome" : isBuyer ? "/dashboard/buyerHome" : "/dashboard/workerHome"; 
+  const dashboardRoute = isAdmin
+    ? "/dashboard/adminHome"
+    : isBuyer
+    ? "/dashboard/buyerHome"
+    : "/dashboard/workerHome";
   const navOptions = (
     <>
       <li>
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/">Join as Developer</Link>
+        <a href="https://github.com/khushiiakter" target="_blank">
+          Join as Developer
+        </a>
       </li>
 
       {
@@ -27,15 +34,19 @@ const Navbar = () => {
 
       {user ? (
         <>
-          <li><Link >Available Coin{coins}</Link></li>
+          <li >
+            <Link>
+              Available Coin{" "}
+              <span>
+                <img className="h-4" src={Coin} alt="" /></span>{coins}
+            </Link>
+          </li>
           <li>
             <Link to={dashboardRoute}>Dashboard</Link>
           </li>
         </>
       ) : (
-        <>
-          
-        </>
+        <></>
       )}
     </>
   );
@@ -87,8 +98,10 @@ const Navbar = () => {
           <>
             <div className="relative group hidden md:block">
               <img
-                src={ user.photoURL ? user.photoURL:
-                  `${"https://i.ibb.co.com/Rh2DLGL/blank-profile-picture-973460-640.png"}`
+                src={
+                  user.photoURL
+                    ? user.photoURL
+                    : `${"https://i.ibb.co.com/Rh2DLGL/blank-profile-picture-973460-640.png"}`
                 }
                 // alt="Profile"
                 className="border-2 border-[#e3e5f3d5] w-11 h-11 mr-3 rounded-full object-cover cursor-pointer ml-16"
