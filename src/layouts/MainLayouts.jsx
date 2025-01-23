@@ -7,8 +7,11 @@ import Footer from "../components/Shared/Footer";
 const MainLayouts = () => {
   return (
     <div className="bg-white">
-      <Navbar></Navbar>
-      <div className="min-h-screen">
+      <section className="w-full fixed z-20 backdrop-blur-lg ">
+         <Navbar></Navbar>
+      </section>
+     
+      <div className="pt-[68px] min-h-screen">
         <Outlet />
       </div>
       <Footer></Footer>
