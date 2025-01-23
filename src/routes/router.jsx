@@ -21,12 +21,13 @@ import ManageUsers from "../Pages/Admin/ManageUsers";
 import ManageTasks from "../Pages/Admin/ManageTasks";
 import TaskDetail from "../components/TaskDetail";
 import AdminRoute from "./AdminRoute";
+import ErrorPage from "../Pages/ErrorPage";
 
 const router = createBrowserRouter([
     {
       path: "/",
       element: <MainLayouts></MainLayouts>,
-    //   errorElement: <ErrorPage></ErrorPage>,
+      errorElement: <ErrorPage></ErrorPage>,
       children: [
         {
           path: "/",

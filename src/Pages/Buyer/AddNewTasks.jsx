@@ -4,6 +4,9 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Helmet } from "react-helmet-async";
 
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
 const AddNewTasks = () => {
   const { user, coins, setCoins } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -22,41 +25,63 @@ const AddNewTasks = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleAddTask = (e) => {
+  const handleAddTask = async (e) => {
     e.preventDefault();
 
-    const totalPayableAmount =
-      parseInt(formData.requiredWorkers) * parseInt(formData.payableAmount);
-
-    const userCoins = `${coins}`;
-
-    if (totalPayableAmount > userCoins) {
+    const imageFile = e.target.image.files[0]; // Get the file from input
+    if (!imageFile) {
       Swal.fire({
-        title: "Insufficient Coins",
-        text: "Not enough coins. Please purchase more coins to proceed.",
+        title: "Error!",
+        text: "Please select an image for the task.",
         icon: "error",
       });
-      navigate("/dashboard/purchaseCoin");
       return;
     }
 
-    const newTask = {
-      ...formData,
-      totalPayableAmount,
-      userEmail: user?.email,
-      addedDate: new Date().toISOString().split("T")[0],
-    };
+    const formDataImage = new FormData();
+    formDataImage.append("image", imageFile);
 
-    fetch("https://earnly-server.vercel.app/tasks", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newTask),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
+    try {
+      // Upload image to imgbb
+      const response = await fetch(image_hosting_api, {
+        method: "POST",
+        body: formDataImage,
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        const imageUrl = data.data.url; // Get the image URL
+        const totalPayableAmount =
+          parseInt(formData.requiredWorkers) * parseInt(formData.payableAmount);
+
+        if (totalPayableAmount > coins) {
+          Swal.fire({
+            title: "Insufficient Coins",
+            text: "Not enough coins. Please purchase more coins to proceed.",
+            icon: "error",
+          });
+          navigate("/dashboard/purchaseCoin");
+          return;
+        }
+
+        const newTask = {
+          ...formData,
+          taskImageUrl: imageUrl,
+          totalPayableAmount,
+          userEmail: user?.email,
+          addedDate: new Date().toISOString().split("T")[0],
+        };
+
+        // Save task to the database
+        const res = await fetch("https://earnly-server.vercel.app/tasks", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newTask),
+        });
+        const result = await res.json();
+
+        if (result.insertedId) {
           setCoins((prevCoins) => prevCoins - totalPayableAmount);
-
           Swal.fire({
             title: "Success!",
             text: "Task added successfully.",
@@ -79,23 +104,35 @@ const AddNewTasks = () => {
             icon: "error",
           });
         }
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "Image upload failed. Please try again.",
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Error!",
+        text: "Something went wrong during image upload.",
+        icon: "error",
       });
+      console.error(error);
+    }
   };
 
   return (
     <div className="flex items-center justify-center bg-gray-100">
       <Helmet>
-        <title>Earnly - AddNewTask </title>
+        <title>Earnly - Add New Task</title>
       </Helmet>
       <div className="bg-white shadow-lg mt-5 mb-10 rounded-lg w-full max-w-3xl px-8 py-6">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Add New Task {coins}
+          Add New Task ({coins} Coins Available)
         </h2>
         <form onSubmit={handleAddTask} className="space-y-6">
           <div>
-            <label className="block font-medium text-gray-700">
-              Task Title
-            </label>
+            <label className="block font-medium text-gray-700">Task Title</label>
             <input
               type="text"
               name="taskTitle"
@@ -107,9 +144,7 @@ const AddNewTasks = () => {
             />
           </div>
           <div>
-            <label className="block font-medium text-gray-700">
-              Task Details
-            </label>
+            <label className="block font-medium text-gray-700">Task Details</label>
             <textarea
               name="taskDetails"
               value={formData.taskDetails}
@@ -179,15 +214,13 @@ const AddNewTasks = () => {
           </div>
           <div>
             <label className="block font-medium text-gray-700">
-              Task Image URL
+              Task Image
             </label>
             <input
-              type="url"
-              name="taskImageUrl"
-              value={formData.taskImageUrl}
-              onChange={handleInputChange}
-              placeholder="Enter task image URL"
-              className="w-full px-3 py-2 border rounded shadow"
+              type="file"
+              name="image"
+              className="file-input file-input-bordered w-full"
+              required
             />
           </div>
           <div className="text-center">

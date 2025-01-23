@@ -1,9 +1,10 @@
-import axios from "axios";
+// import axios from "axios";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useAxiosPublic from "./hooks/useAxiosPublic";
 
 import profile from "../assets/blank-profile-picture-973460_640.png"
+
 
 const testimonials = [
     {
@@ -25,10 +26,11 @@ const testimonials = [
 
 const Testimonial = () => {
     const [workers, setWorkers] = useState([]);
+    const  axiosPublic = useAxiosPublic();
 
     useEffect(() => {
         const fetchTopWorkers = async () => {
-            const response = await useAxiosPublic.get('/top-workers');
+            const response = await axiosPublic.get('/testimonials');
             setWorkers(response.data);
         };
         fetchTopWorkers();

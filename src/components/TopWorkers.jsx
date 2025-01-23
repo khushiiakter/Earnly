@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import useAxiosPublic from "../components/hooks/useAxiosPublic";
+import useAxiosPublic from "./hooks/useAxiosPublic";
 
 const TopWorkers = () => {
     const [workers, setWorkers] = useState([]);
