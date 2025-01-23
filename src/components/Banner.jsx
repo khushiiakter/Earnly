@@ -11,7 +11,7 @@ import img3 from "../assets/Coins-amico.png";
 
 const Banner = () => {
   return (
-    <div className="relative  w-full h-[73vh]">
+    <div className="relative  w-full md:h-[73vh]">
       <Swiper
         modules={[Pagination, Navigation, Autoplay]}
         pagination={{ clickable: true }}
@@ -21,16 +21,16 @@ const Banner = () => {
       >
         {/* Slide 1 */}
         <SwiperSlide>
-          <div className="flex items-center justify-center h-full bg-gray-100">
-            <div className="w-1/2 pl-10">
-              <h2 className="text-3xl md:leading-tight md:text-[54px] font-extrabold text-[#0F1035] ">
+          <div className="flex items-center md:flex-row flex-col  md:justify-center h-full bg-gray-100">
+            <div className="md:w-1/2 pl-10 text-center md:text-left">
+              <h2 className="md:text-3xl text-2xl md:leading-tight md:text-[54px] font-extrabold text-[#0F1035] ">
                 Unlock Online Earning Potential
               </h2>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="md:text-lg text-sm text-gray-600 mb-6 mt-2">
                 Discover micro-task opportunities and start earning today with
                 Earnly. Build your financial future one task at a time.
               </p>
-              <button className="md:place-self-start place-self-center w-fit py-3 px-6 rounded-full  text-white bg-[#561b61]  hover:bg-[#a069aa] font-semibold  ">
+              <button className="md:place-self-start  place-self-center w-fit py-3 px-6 rounded-full  text-white bg-[#561b61]  hover:bg-[#a069aa] font-semibold  ">
                 Get Started
               </button>
             </div>
@@ -46,12 +46,12 @@ const Banner = () => {
 
         {/* Slide 2 */}
         <SwiperSlide>
-          <div className="flex items-center justify-center h-full bg-gray-100">
-            <div className="w-1/2 pl-10">
+          <div className="flex items-center md:flex-row flex-col  md:justify-center h-full bg-gray-100">
+            <div className="md:w-1/2 pl-10 text-center md:text-left">
               <h2 className="text-3xl md:leading-tight md:text-[54px] font-extrabold text-[#0F1035] ">
                 Your Income, Your Control
               </h2>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="md:text-lg text-sm text-gray-600 mb-6 mt-2">
                 Experience a platform where your skills and effort define your
                 success. Join thousands who are earning securely on Earnly.
               </p>
@@ -59,7 +59,7 @@ const Banner = () => {
                 Learn More
               </button>
             </div>
-            <div className="w-1/2 md:h-[380px]">
+            <div className="md:w-1/2 md:h-[380px]">
               <img
                 src={img2}
                 alt="Income Control"
@@ -71,12 +71,12 @@ const Banner = () => {
 
         {/* Slide 3 */}
         <SwiperSlide>
-          <div className="flex items-center justify-center h-full bg-gray-100">
-            <div className="w-1/2 pl-10">
+          <div className="flex items-center md:flex-row flex-col  md:justify-center h-full bg-gray-100">
+            <div className="md:w-1/2 pl-10 text-center md:text-left">
               <h2 className="text-3xl md:leading-tight md:text-[54px] font-extrabold text-[#0F1035] ">
                 Trusted User Reviews
               </h2>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="md:text-lg text-sm text-gray-600 mb-6 mt-2">
                 Discover honest feedback from verified users to make informed
                 decisions about the services you choose.
               </p>
@@ -84,7 +84,7 @@ const Banner = () => {
                 Learn More
               </button>
             </div>
-            <div className="w-1/2 md:h-[380px]"><img
+            <div className="md:w-1/2 md:h-[380px]"><img
                 src={img3}
                 alt="Trusted Reviews"
                 className="h-full w-full object-contain"
