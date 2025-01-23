@@ -16,7 +16,7 @@ const AdminHome = () => {
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
-            setError(null); // Reset error
+            setError(null); 
             try {
                 const [statsResponse, withdrawalsResponse] = await Promise.all([
                     axiosSecure.get("/admin/stats"),

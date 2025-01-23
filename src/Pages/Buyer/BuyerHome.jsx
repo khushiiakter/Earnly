@@ -1,14 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import useAxiosSecure from "../../components/hooks/useAxiosSecure";
 import { AuthContext } from "../../providers/AuthProvider";
-import { useMutation, useQuery } from "@tanstack/react-query";
+// import { useMutation, useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const BuyerHome = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   const [submissions, setSubmissions] = useState([]);
-  const [selectedSubmission, setSelectedSubmission] = useState(null);
-
+  const [stats, setStats] = useState({
+    totalTasks: 0,
+    pendingWorkers: 0,
+    totalPayment: 0,
+  });
   // Fetch Submissions
   useEffect(() => {
     if (user?.email) {
@@ -31,55 +35,49 @@ const BuyerHome = () => {
           console.error("Error fetching submissions:", error);
           setSubmissions([]);
         });
+      // Fetch Buyer Statistics
+      axiosSecure.get(`/buyer/statistics?email=${user.email}`)
+        .then((res) => {
+          setStats(res.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching statistics:", error);
+        });
     }
   }, [user?.email]);
 
-  // Fetch Buyer Statistics
-  const {
-    data: stats = { totalTasks: 0, pendingWorkers: 0, totalPayment: 0 },
-  } = useQuery({
-    queryKey: ["buyerStatistics", user?.email],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/buyer/statistics");
-      return res.data;
-    },
-    enabled: !!user?.email,
-  });
-
-  // Approve Submission Mutation
-  const approveMutation = useMutation({
-    mutationFn: async ({ _id, worker_email, payable_amount }) => {
-      return await axiosSecure.post("/submissions/approve", {
+   // Approve Submission
+   const approveSubmission = async (_id, worker_email, payable_amount) => {
+    try {
+      const response = await axios.post("https://earnly-server.vercel.app/submissions/approve", {
         _id,
         worker_email,
         payable_amount,
       });
-    },
-    onSuccess: (_, { _id }) => {
-      setSubmissions((prev) => prev.filter((sub) => sub._id !== _id));
-    },
-    onError: (error) => {
+      if (response.data.message === "Submission approved successfully.") {
+        setSubmissions((prev) => prev.filter((sub) => sub._id !== _id));
+      }
+    } catch (error) {
       console.error("Error approving submission:", error);
       alert("Failed to approve submission. Please try again.");
-    },
-  });
+    }
+  };
 
-  // Reject Submission Mutation
-  const rejectMutation = useMutation({
-    mutationFn: async ({ _id, task_id }) => {
-      return await axiosSecure.post("/submissions/reject", {
+  // Reject Submission
+  const rejectSubmission = async (_id, task_id) => {
+    try {
+      const response = await axios.post("https://earnly-server.vercel.app/submissions/reject", {
         _id,
         task_id,
       });
-    },
-    onSuccess: (_, { _id }) => {
-      setSubmissions((prev) => prev.filter((sub) => sub._id !== _id));
-    },
-    onError: (error) => {
+      if (response.data.message === "Submission rejected successfully.") {
+        setSubmissions((prev) => prev.filter((sub) => sub._id !== _id));
+      }
+    } catch (error) {
       console.error("Error rejecting submission:", error);
       alert("Failed to reject submission. Please try again.");
-    },
-  });
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -122,37 +120,30 @@ const BuyerHome = () => {
                   <td>${submission.payable_amount}</td>
                   <td>
                     <button
-                      className={`btn btn-info btn-sm mr-2`}
-                      onClick={() => setSelectedSubmission(submission)}
+                      className="btn btn-info btn-sm mr-2"
+                      onClick={() => {
+                        
+                      }}
                     >
                       View
                     </button>
                     <button
-                      className={`btn btn-success btn-sm mr-2 ${
-                        approveMutation.isLoading ? "loading" : ""
-                      }`}
+                      className="btn btn-success btn-sm mr-2"
                       onClick={() =>
-                        approveMutation.mutate({
-                          _id: submission._id,
-                          worker_email: submission.worker_email,
-                          payable_amount: submission.payable_amount,
-                        })
+                        approveSubmission(
+                          submission._id,
+                          submission.worker_email,
+                          submission.payable_amount
+                        )
                       }
-                      disabled={approveMutation.isLoading}
                     >
                       Approve
                     </button>
                     <button
-                      className={`btn btn-error btn-sm ${
-                        rejectMutation.isLoading ? "loading" : ""
-                      }`}
+                      className="btn btn-error btn-sm"
                       onClick={() =>
-                        rejectMutation.mutate({
-                          _id: submission._id,
-                          task_id: submission.task_id,
-                        })
+                        rejectSubmission(submission._id, submission.task_id)
                       }
-                      disabled={rejectMutation.isLoading}
                     >
                       Reject
                     </button>
@@ -164,39 +155,6 @@ const BuyerHome = () => {
         </div>
       ) : (
         <p className="text-lg">No pending submissions to review.</p>
-      )}
-
-      {/* Modal */}
-      {selectedSubmission && (
-        <div>
-          <input
-            type="checkbox"
-            id="submission-modal"
-            className="modal-toggle"
-          />
-          <div className="modal">
-            <div className="modal-box relative">
-              <label
-                htmlFor="submission-modal"
-                className="btn btn-sm btn-circle absolute right-2 top-2"
-                onClick={() => setSelectedSubmission(null)}
-              >
-                ✕
-              </label>
-              <h3 className="text-lg font-bold">Submission Details</h3>
-              <p>
-                <strong>Worker Name:</strong> {selectedSubmission.worker_name}
-              </p>
-              <p>
-                <strong>Task Title:</strong> {selectedSubmission.task_title}
-              </p>
-              <p>
-                <strong>Details:</strong>{" "}
-                {selectedSubmission.details || "No details provided."}
-              </p>
-            </div>
-          </div>
-        </div>
       )}
     </div>
   );
