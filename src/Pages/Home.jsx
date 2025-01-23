@@ -1,5 +1,6 @@
 import AboutUs from "../components/AboutUs";
 import Banner from "../components/Banner";
+import Membership from "../components/Membership";
 import Testimonial from "../components/Testimonial";
 import TopWorkers from "../components/TopWorkers";
 import WhyUs from "../components/WhyUs";
@@ -22,6 +23,9 @@ const Home = () => {
       </div>
       <div className="container py-8 mx-auto md:px-3">
         <AboutUs></AboutUs>
+      </div>
+      <div className="container py-8 mx-auto md:px-3">
+        <Membership></Membership>
       </div>
 
       

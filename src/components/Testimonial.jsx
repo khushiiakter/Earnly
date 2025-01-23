@@ -49,7 +49,7 @@ const Testimonial = () => {
 
             <section className="text-white  px-6">
                 <h2 className="text-4xl text-[#5f1a89] font-extrabold text-center my-6">
-                    What Our Users Say
+                    Testimonial
                 </h2>
                 
                 <Swiper
