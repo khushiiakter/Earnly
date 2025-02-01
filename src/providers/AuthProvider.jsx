@@ -22,9 +22,22 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const axiosPublic = useAxiosPublic();
 
-  const createNewUser = (email, password) => {
+  
+  const createNewUser = async (email, password, name, photo, role) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(result.user, { displayName: name, photoURL: photo });
+    const newUser = {
+      name,
+      email,
+      image: photo,
+      role,
+      coins: role === "Worker" ? 10 : 50,
+    };
+    await axios.post("https://earnly-server.vercel.app/users", newUser);
+    setUser({ ...result.user, coins: newUser.coins, role: newUser.role });
+    setCoins(newUser.coins);
+    return result.user;
   };
 
   const userLogIn = (email, password) => {
@@ -59,8 +72,9 @@ const AuthProvider = ({ children }) => {
         });
       }
 
-      setUser(user);
-
+      setUser({ ...user, coins: data?.coins || 10 });
+      setCoins(data?.coins || 10);
+      setLoading(false);
       return user;
     } catch (error) {
       console.error("Google Login Error:", error);
@@ -68,25 +82,39 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const logOut = () => {
+  const logOut = async () => {
     setLoading(true);
-    return signOut(auth);
+    return signOut(auth)
+      .then(() => {
+        setUser(null);
+        setCoins(0);
+        localStorage.removeItem("access-token");
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Logout Error:", error);
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         try {
-          // Fetch user info from the backend
           const { data } = await axios.get(
             `https://earnly-server.vercel.app/users/${currentUser.email}`
           );
-          setUser({
-            ...currentUser,
-            role: data.role,
-            coins: data.coins,
-          });
-          setCoins(data.coins || 0);
+          if(data){
+            setUser({
+              ...currentUser,
+              role: data.role,
+              coins: data.coins,
+            });
+            setCoins(data.coins || 0);
+          }
+          
+          // setCoins((prevCoins) => prevCoins || data.coins || 0);
+          
           // Get JWT token
           const userInfo = { email: currentUser.email };
           axiosPublic.post("/jwt", userInfo).then((res) => {
@@ -94,15 +122,19 @@ const AuthProvider = ({ children }) => {
               localStorage.setItem("access-token", res.data.token);
               setLoading(false);
             }
-          });
+           
+          })
         } catch (error) {
           console.error("Failed to fetch user data:", error);
+         
         }
       } else {
-        localStorage.removeItem("access-token");
-        setLoading(false);
+       
+         setLoading(false);
         setUser(null);
         setCoins(0);
+        localStorage.removeItem("access-token");
+        
       }
       // setLoading(false);
     });

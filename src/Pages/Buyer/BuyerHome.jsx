@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import useAxiosSecure from "../../components/hooks/useAxiosSecure";
 import { AuthContext } from "../../providers/AuthProvider";
 // import { useMutation, useQuery } from "@tanstack/react-query";
-import axios from "axios";
+// import axios from "axios";
 
 const BuyerHome = () => {
   const { user } = useContext(AuthContext);
@@ -16,16 +16,10 @@ const BuyerHome = () => {
   // Fetch Submissions
   useEffect(() => {
     if (user?.email) {
-      axiosSecure
-        .get(`/submissions/${user.email}`)
+      axiosSecure.get(`/submissions/${user.email}`)
         .then((res) => {
           if (Array.isArray(res.data)) {
-            setSubmissions(
-              res.data.sort(
-                (a, b) =>
-                  new Date(b.completionDate) - new Date(a.completionDate)
-              )
-            );
+            setSubmissions(res.data );
           } else {
             console.error("Invalid data format:", res.data);
             setSubmissions([]);
@@ -49,7 +43,7 @@ const BuyerHome = () => {
    // Approve Submission
    const approveSubmission = async (_id, worker_email, payable_amount) => {
     try {
-      const response = await axios.post("https://earnly-server.vercel.app/submissions/approve", {
+      const response = await axiosSecure.post("/submissions/approve", {
         _id,
         worker_email,
         payable_amount,
@@ -66,7 +60,7 @@ const BuyerHome = () => {
   // Reject Submission
   const rejectSubmission = async (_id, task_id) => {
     try {
-      const response = await axios.post("https://earnly-server.vercel.app/submissions/reject", {
+      const response = await axiosSecure.post("/submissions/reject", {
         _id,
         task_id,
       });

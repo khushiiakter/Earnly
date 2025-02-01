@@ -9,11 +9,14 @@ const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
-  const { createNewUser, setUser, updateUserProfile, auth, handleGoogleLogin } =
+  const { createNewUser, setUser, updateUserProfile,user,auth, handleGoogleLogin } =
     useContext(AuthContext);
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  
+
 
   const isPasswordValid = (password) => {
     const minLength = password.length >= 6;
@@ -21,14 +24,14 @@ const Register = () => {
     const hasLowercase = /[a-z]/.test(password);
     return minLength && hasUppercase && hasLowercase;
   };
-
   useEffect(() => {
-    const user = auth.currentUser;
+    
     if (user) {
       navigate("/");
     }
-  }, [auth, navigate]);
+  }, [user,navigate]);
 
+ 
   const handleGoogleLoginClick = async () => {
     try {
       await handleGoogleLogin();
@@ -71,22 +74,21 @@ const Register = () => {
       const imageResult = await imageResponse.json();
 
       if (imageResult.success) {
-        const photoURL = imageResult.data.url; // Get uploaded image URL
+        const photoURL = imageResult.data.url;
+        const newUser = await createNewUser(email, password, name, photoURL, role);
 
-        const result = await createNewUser(email, password);
-        const user = result.user;
-
-        await updateUserProfile(name, photoURL);
-
-        await axios.post("https://earnly-server.vercel.app/users", {
+       
+        const userData = {
           name,
           email,
           image: photoURL,
           role,
           coins,
-        });
+        };
+        await axios.post("https://earnly-server.vercel.app/users", userData);
 
-        setUser(user);
+     
+        setUser({...newUser, coins, role});
         toast.success("Registration Successful!");
         navigate("/");
       } else {

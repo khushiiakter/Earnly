@@ -30,21 +30,6 @@ const defaultTestimonials = [
 const Testimonial = () => {
   const [testimonials, setTestimonials] = useState([]);
 
-  useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        const response = await axios.get(
-          "https://earnly-server.vercel.app/testimonials"
-        );
-        setTestimonials(response.data);
-      } catch (error) {
-        console.error("Error fetching testimonials:", error);
-        setTestimonials(defaultTestimonials); // Fallback to default testimonials
-      }
-    };
-    fetchTestimonials();
-  }, []);
-
   return (
     <div className="container mx-auto p-6">
       <h2 className="text-4xl text-[#5f1a89] font-extrabold text-center mb-8">
@@ -63,7 +48,7 @@ const Testimonial = () => {
           <SwiperSlide key={index}>
             <div className="bg-gray-100 shadow-lg rounded-xl p-6 text-center flex flex-col items-center">
               <img
-                src={testimonial.image || profile}
+                src={testimonial.image}
                 alt={testimonial.name}
                 className="w-24 h-24 rounded-full border-4 border-[#5f1a89] mb-4"
               />
@@ -74,7 +59,7 @@ const Testimonial = () => {
               <div className="flex items-center">
                 <span className="text-yellow-400 text-2xl mr-2">⭐</span>
                 <span className="text-yellow-400 text-lg font-bold">
-                  {testimonial.rating || "5.0"}
+                  {testimonial.rating}
                 </span>
               </div>
             </div>
