@@ -10,7 +10,7 @@ Welcome to **Earnly**, a Micro-Task and Earning Platform designed to empower wor
 [Visit Earnly Platform](https://earnly-fad73.web.app/)
 
 ## 📸 Screenshot
-![Earnly Screenshot](https://i.ibb.co.com/mrHg4dWV/Screenshot-2025-02-05-153029.png) 
+![Earnly Screenshot](https://i.ibb.co.com/MkM452WH/Screenshot-2025-02-05-161104.png) 
 
 ## Key Features
 
