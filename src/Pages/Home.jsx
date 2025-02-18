@@ -5,6 +5,7 @@ import Membership from "../components/Membership";
 import Testimonial from "../components/Testimonial";
 import TopWorkers from "../components/TopWorkers";
 import WhyUs from "../components/WhyUs";
+import TopTasks from "../components/TopTasks";
 
 const Home = () => {
   return (
@@ -14,6 +15,9 @@ const Home = () => {
       </Helmet>
       <div className="">
         <Banner></Banner>
+      </div>
+      <div className="container py-8 mx-auto md:px-4 px-2">
+        <TopTasks></TopTasks>
       </div>
       <div className="container py-8 mx-auto md:px-4 px-2">
         <TopWorkers></TopWorkers>

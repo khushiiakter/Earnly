@@ -75,6 +75,9 @@ const DashboardLayout = () => {
                 <Link to="/dashboard/adminHome">Admin Home</Link>
               </li>
               <li>
+                <Link to="/dashboard/tasks">TaskList</Link>
+              </li>
+              <li>
                 <Link to="/dashboard/manageUsers">Manage Users</Link>
               </li>
               <li>
@@ -93,6 +96,9 @@ const DashboardLayout = () => {
               </li>
               <li>
                 <Link to="/dashboard/myTasks">My Task's</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/tasks">TaskList</Link>
               </li>
               <li>
                 <Link to="/dashboard/purchaseCoin">Purchase Coin</Link>

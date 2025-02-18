@@ -9,27 +9,32 @@ const TaskCard = ({ task }) => {
     completionDate,
     payableAmount,
     requiredWorkers,
-    
   } = task;
-  
+
   return (
     <div className="border flex flex-col rounded-lg shadow-lg p-4 bg-white">
       <div className="flex flex-col flex-grow">
-        <img src={taskImageUrl} className="w-full object-cover h-[150px]" alt="" />
-        <h3 className="text-xl font-bold text-gray-800">{taskTitle}</h3>
-        <p className="text-base text-gray-600 mt-2">
-          <strong>Buyer:</strong> {Buyer_name}
-        </p>
-        <p className="text-base text-gray-600 mt-1">
-          <strong>Completion Date:</strong> {completionDate}
-        </p>
-        <p className="text-base text-gray-600 mt-1">
-          <strong>Payable Amount:</strong> ${payableAmount}
-        </p>
-        <p className="text-base text-gray-600 mt-1">
-          <strong>Required Workers:</strong> {requiredWorkers}
-        </p>
-        
+        <img
+          src={taskImageUrl}
+          className="w-full object-cover h-[150px]"
+          alt=""
+        />
+        <div className="flex flex-col flex-grow">
+          <h3 className="text-xl font-bold text-gray-800">{taskTitle}</h3>
+          <p className="text-base text-gray-600 mt-2">
+            <strong>Buyer:</strong> {Buyer_name}
+          </p>
+          <p className="text-base text-gray-600 mt-1">
+            <strong>Completion Date:</strong> {completionDate}
+          </p>
+          <p className="text-base text-gray-600 mt-1">
+            <strong>Payable Amount:</strong> ${payableAmount}
+          </p>
+          <p className="text-base text-gray-600 mt-1">
+            <strong>Required Workers:</strong> {requiredWorkers}
+          </p>
+        </div>
+
         <div className="mt-4">
           <Link to={`/dashboard/task-details/${_id}`}>
             <button className="text-white bg-blue-600 w-full hover:bg-blue-700 font-semibold px-4 py-2 rounded-md">
