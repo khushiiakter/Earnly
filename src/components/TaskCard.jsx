@@ -37,7 +37,7 @@ const TaskCard = ({ task }) => {
 
         <div className="mt-4">
           <Link to={`/dashboard/task-details/${_id}`}>
-            <button className="text-white bg-blue-600 w-full hover:bg-blue-700 font-semibold px-4 py-2 rounded-md">
+            <button className="text-white w-full bg-[#5f1a89]  hover:bg-[#0F1035] font-semibold px-4 py-2 rounded-md">
               View Details
             </button>
           </Link>

@@ -23,6 +23,7 @@ import TaskDetail from "../components/TaskDetail";
 import AdminRoute from "./AdminRoute";
 import ErrorPage from "../Pages/ErrorPage";
 import Help from "../Pages/Help";
+import ProfilePage from "../Pages/ProfilePage";
 
 const router = createBrowserRouter([
     {
@@ -71,6 +72,11 @@ const router = createBrowserRouter([
         {
           path: 'workerHome',
           element: <WorkerHome></WorkerHome>,
+          
+        },
+        {
+          path: 'profilePage',
+          element: <ProfilePage></ProfilePage>,
           
         },
         {

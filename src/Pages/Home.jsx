@@ -6,6 +6,7 @@ import Testimonial from "../components/Testimonial";
 import TopWorkers from "../components/TopWorkers";
 import WhyUs from "../components/WhyUs";
 import TopTasks from "../components/TopTasks";
+import MeetOurPartners from "../components/MeetOurPartners";
 
 const Home = () => {
   return (
@@ -16,22 +17,26 @@ const Home = () => {
       <div className="">
         <Banner></Banner>
       </div>
-      <div className="container py-8 mx-auto md:px-4 px-2">
+      <div className="container py-12 mx-auto md:px-4 px-2">
         <TopTasks></TopTasks>
       </div>
-      <div className="container py-8 mx-auto md:px-4 px-2">
+      <div className="container py-12 mx-auto md:px-4  px-2">
         <TopWorkers></TopWorkers>
       </div>
-      <div className="container py-8 mx-auto md:px-3">
+      <div className="container py-12 mx-auto md:px-3">
         <Testimonial></Testimonial>
       </div>
-      <div className="container py-8 mx-auto md:px-3">
+      <div className="container py-12 mx-auto md:px-3">
         <WhyUs></WhyUs>
       </div>
-      <div className="container py-8 mx-auto md:px-3">
+      <div className="container py-12 mx-auto md:px-3">
         <AboutUs></AboutUs>
       </div>
-      <div className="container py-8 mx-auto md:px-3">
+      <div className="container py-12 mx-auto md:px-3">
+        <MeetOurPartners></MeetOurPartners>
+      </div>
+
+      <div className="container py-12 mx-auto md:px-3">
         <Membership></Membership>
       </div>
     </>

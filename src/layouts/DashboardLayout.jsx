@@ -132,6 +132,12 @@ const DashboardLayout = () => {
               <span className="mx-4 font-medium">Home</span>
             </Link>
           </li>
+          <li>
+            <Link to="/dashboard/profilePage">
+              <FaHome></FaHome>
+              <span className="mx-4 font-medium">Profile</span>
+            </Link>
+          </li>
         </ul>
       </div>
     </div>
