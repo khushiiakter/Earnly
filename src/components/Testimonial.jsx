@@ -44,7 +44,7 @@ const Testimonial = () => {
         navigation
         className="pb-12"
       >
-        {testimonials.map((testimonial, index) => (
+        {defaultTestimonials.map((testimonial, index) => (
           <SwiperSlide key={index}>
             <div className="bg-gray-100 shadow-lg rounded-xl p-6 text-center flex flex-col items-center">
               <img
@@ -57,8 +57,8 @@ const Testimonial = () => {
               </h3>
               <p className="text-gray-600 italic mb-4">"{testimonial.quote}"</p>
               <div className="flex items-center">
-                <span className="text-yellow-400 text-2xl mr-2">⭐</span>
-                <span className="text-yellow-400 text-lg font-bold">
+                <span className="text-[#5f1a89] text-2xl mr-2">⭐</span>
+                <span className="text-[#5f1a89] text-lg font-bold">
                   {testimonial.rating}
                 </span>
               </div>

@@ -2,7 +2,7 @@ import que from "../assets/Questions-amico.png"
 const AboutUs = () => {
   return (
     <section className="bg-gray-50 py-16">
-    <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
+    <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 items-center justify-between gap-12">
       {/* Left Section: Image/Illustration */}
       <div className="flex justify-center">
         <img

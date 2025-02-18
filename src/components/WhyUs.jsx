@@ -10,7 +10,7 @@ const WhyUs = () => {
                         The Micro Tasking and Earning Platform, earnly is designed to provide users with opportunities to complete small tasks and earn money.
                     </p>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-9 items-center justify-between">
+                <div className="flex md:flex-row flex-col gap-9 p-6 items-center justify-between">
                     {/* Left Section: Text */}
                     <div className="">
                         <p className="px-2 text-center md:text-left text-gray-700 mb-5">
@@ -57,11 +57,11 @@ const WhyUs = () => {
                     </div>
 
                     {/* Right Section: Illustration */}
-                    <div>
+                    <div className="w-full">
                         <img
                             src={que}
                             alt="Platform Illustration"
-                            className="rounded-lg h-[470px]"
+                            className="rounded-lg w-full h-[470px]"
                         />
                     </div>
                 </div>

@@ -115,7 +115,7 @@ const Navbar = () => {
             </div>
             <Link
               onClick={logOut}
-              className="md:py-2 py-2 px-4 mr-2 text-sm md:text-base text-white bg-[#0F1035] font-semibold hover:bg-green-800 rounded-full md:px-5  hover:border-white "
+              className="md:py-2 py-2 px-4 mr-2 text-sm md:text-base text-white bg-[#5f1a89] font-semibold hover:bg-[#0F1035] rounded-full md:px-5  hover:border-white "
             >
               Log Out
             </Link>
@@ -124,13 +124,13 @@ const Navbar = () => {
           <>
             <Link
               to="/auth/login"
-              className="md:py-2 py-2 px-4 mr-2 text-sm md:text-base text-white bg-[#0F1035] font-semibold hover:bg-green-800 rounded-full md:px-5  hover:border-white "
+              className="md:py-2 py-2 px-4 mr-2 text-sm md:text-base text-white bg-[#5f1a89] font-semibold hover:bg-[#0F1035] rounded-full md:px-5  hover:border-white "
             >
               Login
             </Link>
             <Link
               to="/auth/register"
-              className="md:py-2 text-white py-2 px-4 text-sm md:text-base bg-[#0F1035] font-semibold hover:bg-green-800 rounded-full md:px-5  hover:border-white "
+              className="md:py-2 py-2 px-4 mr-2 text-sm md:text-base text-white bg-[#5f1a89] font-semibold hover:bg-[#0F1035] rounded-full md:px-5  hover:border-white  "
             >
               Register
             </Link>
