@@ -26,11 +26,10 @@ const Navbar = () => {
           Join as Developer
         </a>
       </li>
+      <li>
+        <Link to="/help">Help</Link>
+      </li>
 
-      {
-        // user ? 'true': 'false'
-        // user ? condition ? 'double true' : 'one true' : 'false'
-      }
 
       {user ? (
         <>

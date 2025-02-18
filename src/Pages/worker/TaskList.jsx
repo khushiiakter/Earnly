@@ -14,7 +14,7 @@ const TaskList = () => {
       "All",
       ...new Set(tasks.map((task) => task.taskTitle || "Uncategorized")),
     ];
-    setCategories(uniqueCategories);
+    setCategories(uniqueCategories); 
   }, [tasks]);
 
   // Filter tasks based on search term, category, and required_workers

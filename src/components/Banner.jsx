@@ -30,7 +30,7 @@ const Banner = () => {
               <p className="md:text-base text-sm text-gray-600 md:w-2/3 mb-6 mt-2">
                 Discover micro-task opportunities and start earning today with Earnly. Build your financial future one task at a time.
               </p>
-              <button className="md:place-self-start place-self-center w-fit py-3 px-6 rounded-full text-white bg-[#561b61] hover:bg-[#a069aa] font-semibold">
+              <button className="md:place-self-start place-self-center w-fit py-3 px-6 rounded-full text-white bg-[#5f1a89]  hover:bg-[#0F1035] font-semibold">
                 Get Started
               </button>
             </div>
@@ -50,7 +50,7 @@ const Banner = () => {
               <p className="md:text-base text-sm text-gray-600 md:w-2/3 mb-6 mt-2">
                 Experience a platform where your skills and effort define your success. Join thousands who are earning securely on Earnly.
               </p>
-              <button className="md:place-self-start place-self-center w-fit py-3 px-6 rounded-full text-white bg-[#561b61] hover:bg-[#a069aa] font-semibold">
+              <button className="md:place-self-start place-self-center w-fit py-3 px-6 rounded-full text-white bg-[#5f1a89]  hover:bg-[#0F1035]  font-semibold">
                 Learn More
               </button>
             </div>
@@ -70,7 +70,7 @@ const Banner = () => {
               <p className="md:text-base text-sm text-gray-600 md:w-2/3 mb-6 mt-2">
                 Discover honest feedback from verified users to make informed decisions about the services you choose.
               </p>
-              <button className="md:place-self-start place-self-center w-fit py-3 px-6 rounded-full text-white bg-[#561b61] hover:bg-[#a069aa] font-semibold">
+              <button className="md:place-self-start place-self-center w-fit py-3 px-6 rounded-full text-white bg-[#5f1a89]  hover:bg-[#0F1035]  font-semibold">
                 Learn More
               </button>
             </div>

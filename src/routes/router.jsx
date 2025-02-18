@@ -22,6 +22,7 @@ import ManageTasks from "../Pages/Admin/ManageTasks";
 import TaskDetail from "../components/TaskDetail";
 import AdminRoute from "./AdminRoute";
 import ErrorPage from "../Pages/ErrorPage";
+import Help from "../Pages/Help";
 
 const router = createBrowserRouter([
     {
@@ -37,6 +38,11 @@ const router = createBrowserRouter([
         {
             path: "/available-coin",
             element: <h2>Available coin</h2>,
+          
+          },
+          {
+            path: "/help",
+            element: <Help></Help>,
           
           },
       
