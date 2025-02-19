@@ -1,9 +1,9 @@
 import { useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
-import TaskCard from "../../components/TaskCard";
+import TaskCard from "../components/TaskCard";
 
-const TaskList = () => {
-  const tasks = useLoaderData();
+const Tasks = () => {
+    const tasks = useLoaderData();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortOrder, setSortOrder] = useState("asc"); // Default sorting order
@@ -36,7 +36,7 @@ const TaskList = () => {
   });
 
   return (
-    <section className="py-8 md:px-3">
+    <section className="container py-12 mx-auto md:px-4  px-2">
       <h1 className="text-3xl font-bold mb-6">All Tasks</h1>
 
       {/* Search, Category Filter & Sorting */}
@@ -46,12 +46,12 @@ const TaskList = () => {
           placeholder="Search tasks..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-1/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+          className="w-1/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-[#5f1a89]"
         />
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="p-2 w-1/3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+          className="p-2 w-1/3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-[#5f1a89]"
         >
           {categories.map((category) => (
             <option key={category} value={category}>
@@ -62,7 +62,7 @@ const TaskList = () => {
         <select
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
-          className="p-2 w-1/3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+          className="p-2 w-1/3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-[#5f1a89]"
         >
           <option value="asc">Sort by Price: Low to High</option>
           <option value="desc">Sort by Price: High to Low</option>
@@ -70,7 +70,7 @@ const TaskList = () => {
       </div>
 
       {/* Task Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {sortedTasks.map((task) => (
           <TaskCard key={task._id} task={task} />
         ))}
@@ -84,4 +84,4 @@ const TaskList = () => {
   );
 };
 
-export default TaskList;
+export default Tasks;

@@ -28,8 +28,12 @@ const Navbar = () => {
         </a>
       </li>
       <li>
+        <Link to='/all-tasks'>All Tasks</Link>
+      </li>
+      <li>
         <Link to="/help">Help</Link>
       </li>
+
 
 
       {user ? (

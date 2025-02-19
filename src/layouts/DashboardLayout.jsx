@@ -1,5 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
-
+import { CgProfile } from "react-icons/cg";
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { FaBars, FaBell, FaHome } from "react-icons/fa";
@@ -134,7 +134,7 @@ const DashboardLayout = () => {
           </li>
           <li>
             <Link to="/dashboard/profilePage">
-              <FaHome></FaHome>
+            <CgProfile />
               <span className="mx-4 font-medium">Profile</span>
             </Link>
           </li>

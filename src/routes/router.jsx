@@ -24,6 +24,7 @@ import AdminRoute from "./AdminRoute";
 import ErrorPage from "../Pages/ErrorPage";
 import Help from "../Pages/Help";
 import ProfilePage from "../Pages/ProfilePage";
+import Tasks from "../Pages/Tasks";
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,11 @@ const router = createBrowserRouter([
             path: "/available-coin",
             element: <h2>Available coin</h2>,
           
+          },
+          {
+            path: '/all-tasks',
+            element: <Tasks></Tasks>,
+            loader: () => fetch('https://earnly-server.vercel.app/tasks'),
           },
           {
             path: "/help",
