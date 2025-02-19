@@ -29,7 +29,7 @@ const partners = [
 
 const MeetOurPartners = () => {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 ">
       <div className="max-w-7xl mx-auto px-6 text-center">
         <motion.h2
           className="text-4xl font-bold text-[#5f1a89] mb-8"

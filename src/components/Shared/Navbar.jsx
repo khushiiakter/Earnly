@@ -4,6 +4,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import useAdmin from "../hooks/useAdmin";
 import useBuyer from "../hooks/useBuyer";
 import Coin from "../../assets/coin.png";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const { user, logOut, coins } = useContext(AuthContext);
@@ -93,6 +94,7 @@ const Navbar = () => {
       </div>
       <div className="md:block hidden"></div>
       <div className="navbar-end">
+        <ThemeToggle></ThemeToggle>
         {user ? (
           <>
             <div className="relative group hidden md:block">

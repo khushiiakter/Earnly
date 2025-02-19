@@ -9,7 +9,7 @@ import { Helmet } from "react-helmet-async";
 const MainLayouts = () => {
   return (
     
-      <div className="bg-white">
+      <div className="">
         <Helmet>
           <title>Earnly</title>
         </Helmet>

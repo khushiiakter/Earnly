@@ -2,7 +2,7 @@ import que from "../assets/Coins-amico.png"
 
 const WhyUs = () => {
     return (
-        <div className="bg-gray-100 py-8">
+        <div className=" py-8">
             <div className="p-5">
                 <div className="text-center mb-8">
                     <h2 className="text-4xl font-bold text-gray-800 mb-4">About Us</h2>

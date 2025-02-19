@@ -35,7 +35,7 @@ const Membership = () => {
       ];
     
       return (
-        <div className="bg-gray-100 text-gray-900 py-14 px-5">
+        <div className=" text-gray-900 py-14 px-5">
           <div className="max-w-6xl mx-auto">
             <h2 className="md:text-5xl text-3xl font-bold text-[#5f1a89] mb-6 text-center">
               Platform Roles
