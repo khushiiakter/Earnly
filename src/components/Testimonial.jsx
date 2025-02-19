@@ -31,7 +31,7 @@ const Testimonial = () => {
   const [testimonials, setTestimonials] = useState([]);
 
   return (
-    <div className="container mx-auto p-6">
+    <div className=" md:w-1/2 mx-auto p-6">
       <h2 className="text-4xl text-[#5f1a89] font-extrabold text-center mb-8">
         What Our Users Say
       </h2>

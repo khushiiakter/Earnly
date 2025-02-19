@@ -62,22 +62,22 @@ const Withdrawals = () => {
 
  return (
     <div className="withdrawal-page">
-        <div className="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-lg p-6">
-            <h2 className="text-3xl font-semibold text-center mb-8 text-gray-800">Request Withdrawal</h2>
+        <div className="max-w-4xl mx-auto mt-10  shadow-lg rounded-lg p-6">
+            <h2 className="text-3xl font-semibold text-center mb-8 ">Request Withdrawal</h2>
             
             <div className="mb-6 flex justify-between items-center">
                 <div className="flex flex-col items-center">
-                    <p className="text-lg font-medium text-gray-600">Total Coins</p>
+                    <p className="text-lg font-medium ">Total Coins</p>
                     <span className="text-xl font-semibold text-blue-600">{coins}</span>
                 </div>
                 <div className="flex flex-col items-center">
-                    <p className="text-lg font-medium text-gray-600">Withdrawable Amount</p>
+                    <p className="text-lg font-medium ">Withdrawable Amount</p>
                     <span className="text-xl font-semibold text-blue-600">${coins / 20}</span>
                 </div>
             </div>
 
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-                <label className="block text-lg font-medium text-gray-700">Coin to Withdraw</label>
+            <div className=" p-6 rounded-lg shadow-sm">
+                <label className="block text-lg font-medium ">Coin to Withdraw</label>
                 <input
                     type="number"
                     value={withdrawCoin}
@@ -86,15 +86,15 @@ const Withdrawals = () => {
                     className="w-full p-3 mt-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
 
-                <label className="block text-lg font-medium text-gray-700 mt-4">Withdraw Amount ($)</label>
+                <label className="block text-lg font-medium  mt-4">Withdraw Amount ($)</label>
                 <input
                     type="text"
                     value={withdrawAmount}
                     readOnly
-                    className="w-full p-3 mt-2 rounded-lg border border-gray-300 bg-gray-100 cursor-not-allowed"
+                    className="w-full p-3 mt-2 rounded-lg border border-gray-300 cursor-not-allowed"
                 />
 
-                <label className="block text-lg font-medium text-gray-700 mt-4">Select Payment System</label>
+                <label className="block text-lg font-medium  mt-4">Select Payment System</label>
                 <select
                     value={paymentSystem}
                     onChange={(e) => setPaymentSystem(e.target.value)}
@@ -106,7 +106,7 @@ const Withdrawals = () => {
                     <option value="Other">Other</option>
                 </select>
 
-                <label className="block text-lg font-medium text-gray-700 mt-4">Account Number</label>
+                <label className="block text-lg font-medium  mt-4">Account Number</label>
                 <input
                     type="text"
                     value={accountNumber}
@@ -125,7 +125,7 @@ const Withdrawals = () => {
                         className={`w-full p-3 rounded-lg font-semibold text-white ${
                             withdrawCoin <= 0 || withdrawCoin > coins || withdrawCoin < 200 || isLoading
                                 ? "bg-gray-400 cursor-not-allowed"
-                                : "bg-blue-600 hover:bg-blue-700"
+                                : "bg-[#5f1a89] hover:bg-[#0F1035] "
                         }`}
                     >
                         {isLoading ? "Processing..." : "Request Withdrawal"}

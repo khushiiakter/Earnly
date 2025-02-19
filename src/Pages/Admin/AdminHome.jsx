@@ -40,36 +40,36 @@ const AdminHome = () => {
   }
 
   return (
-    <div className="admin-home-page p-6 bg-gray-100 min-h-screen">
+    <div className="admin-home-page p-6  min-h-screen">
       <Helmet>
         <title>Admin Home - Earnly</title>
       </Helmet>
-      <h1 className="text-3xl font-semibold text-center mb-8 text-gray-800">
+      <h1 className="text-3xl font-semibold text-center mb-8 ">
         Admin Dashboard
       </h1>
 
       {/* Stats Section */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="p-4 bg-white shadow-md rounded-md text-center">
-          <h2 className="text-xl font-medium text-gray-700">Total Workers</h2>
+        <div className="p-4  shadow-md rounded-md text-center">
+          <h2 className="text-xl font-medium ">Total Workers</h2>
           <p className="text-2xl font-bold text-[#5f1a89]">
             {stats.totalWorkers}
           </p>
         </div>
-        <div className="p-4 bg-white shadow-md rounded-md text-center">
-          <h2 className="text-xl font-medium text-gray-700">Total Buyers</h2>
+        <div className="p-4  shadow-md rounded-md text-center">
+          <h2 className="text-xl font-medium ">Total Buyers</h2>
           <p className="text-2xl font-bold text-[#5f1a89]">
             {stats.totalBuyers}
           </p>
         </div>
-        <div className="p-4 bg-white shadow-md rounded-md text-center">
-          <h2 className="text-xl font-medium text-gray-700">Total Coins</h2>
+        <div className="p-4  shadow-md rounded-md text-center">
+          <h2 className="text-xl font-medium ">Total Coins</h2>
           <p className="text-2xl font-bold text-[#5f1a89]">
             {stats.totalCoins}
           </p>
         </div>
-        <div className="p-4 bg-white shadow-md rounded-md text-center">
-          <h2 className="text-xl font-medium text-gray-700">Total Payments</h2>
+        <div className="p-4  shadow-md rounded-md text-center">
+          <h2 className="text-xl font-medium ">Total Payments</h2>
           <p className="text-2xl font-bold text-[#5f1a89]">
             {stats.totalPayments}
           </p>
@@ -77,12 +77,12 @@ const AdminHome = () => {
       </div>
 
       {/* Withdrawal Requests Section */}
-      <div className="bg-white p-6 shadow-md rounded-md">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+      <div className=" p-6 shadow-md rounded-md">
+        <h2 className="text-2xl font-semibold  mb-4">
           Pending Withdrawals
         </h2>
         {withdrawals.length === 0 ? (
-          <p className="text-center text-gray-500">
+          <p className="text-center ">
             No withdrawal requests found.
           </p>
         ) : (

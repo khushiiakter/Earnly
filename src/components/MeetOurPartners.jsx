@@ -40,7 +40,7 @@ const MeetOurPartners = () => {
           Our Trusted Partners
         </motion.h2>
         <motion.p
-          className="text-gray-700 mb-12 text-lg"
+          className=" mb-12 text-lg"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}

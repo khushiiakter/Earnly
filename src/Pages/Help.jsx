@@ -92,7 +92,7 @@ const Help = () => {
                   onClick={() => setOpen(open === i ? null : i)}
                 >
                   <div className="flex justify-between items-center">
-                    <span className="font-medium text-xl text-gray-800">{faq.question}</span>
+                    <span className="font-medium text-xl ">{faq.question}</span>
                     <ChevronDown
                       className={`h-5 w-5 transition-transform ${
                         open === i ? "rotate-180" : ""
@@ -100,7 +100,7 @@ const Help = () => {
                     />
                   </div>
                   {open === i && (
-                    <p className="mt-2 text-base text-gray-600">{faq.answer}</p>
+                    <p className="mt-2 text-base ">{faq.answer}</p>
                   )}
                 </div>
               ))}

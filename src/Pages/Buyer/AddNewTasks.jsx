@@ -122,17 +122,17 @@ const AddNewTasks = () => {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-100">
+    <div className="flex items-center justify-center ">
       <Helmet>
         <title>Earnly - Add New Task</title>
       </Helmet>
-      <div className="bg-white shadow-lg mt-5 mb-10 rounded-lg w-full max-w-3xl px-8 py-6">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+      <div className=" shadow-lg mt-5 mb-10 rounded-lg w-full max-w-3xl px-8 py-6">
+        <h2 className="text-3xl font-bold text-center  mb-6">
           Add New Task ({coins} Coins Available)
         </h2>
         <form onSubmit={handleAddTask} className="space-y-6">
           <div>
-            <label className="block font-medium text-gray-700">Task Title</label>
+            <label className="block font-medium ">Task Title</label>
             <input
               type="text"
               name="taskTitle"
@@ -144,7 +144,7 @@ const AddNewTasks = () => {
             />
           </div>
           <div>
-            <label className="block font-medium text-gray-700">Task Details</label>
+            <label className="block font-medium ">Task Details</label>
             <textarea
               name="taskDetails"
               value={formData.taskDetails}
@@ -157,7 +157,7 @@ const AddNewTasks = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block font-medium text-gray-700">
+              <label className="block font-medium ">
                 Required Workers
               </label>
               <input
@@ -171,7 +171,7 @@ const AddNewTasks = () => {
               />
             </div>
             <div>
-              <label className="block font-medium text-gray-700">
+              <label className="block font-medium ">
                 Payable Amount (per worker)
               </label>
               <input
@@ -186,7 +186,7 @@ const AddNewTasks = () => {
             </div>
           </div>
           <div>
-            <label className="block font-medium text-gray-700">
+            <label className="block font-medium ">
               Completion Date
             </label>
             <input
@@ -199,7 +199,7 @@ const AddNewTasks = () => {
             />
           </div>
           <div>
-            <label className="block font-medium text-gray-700">
+            <label className="block font-medium ">
               Submission Info
             </label>
             <input
@@ -213,7 +213,7 @@ const AddNewTasks = () => {
             />
           </div>
           <div>
-            <label className="block font-medium text-gray-700">
+            <label className="block font-medium ">
               Task Image
             </label>
             <input
@@ -226,7 +226,7 @@ const AddNewTasks = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 w-full px-4 rounded-md shadow"
+              className="bg-[#5f1a89] hover:bg-[#0F1035]  text-white font-medium py-3 w-full px-4 rounded-md shadow"
             >
               Add Task
             </button>
